@@ -1,25 +1,18 @@
-import {Action} from 'redux';
-import {isType} from 'typescript-fsa';
-import {somethingHappened} from './authActions';
+import { reducerWithInitialState } from "typescript-fsa-reducers";
+import {actions} from './authActionCreators'
+import IUser from "../../interfaces/user";
 
-type State = {bar: string};
+interface State {
+    user: IUser;
+    error: string
+}
 
-export const reducer = (state: State, action: Action): State => {
-  if (isType(action, somethingHappened)) {
-    // action.payload is inferred as {foo: string};
-
-    action.payload.bar;  // error
-
-    return {bar: action.payload.foo};
-  }
-
-  if (isType(action, somethingAsync.started)) {
-    return {bar: action.payload.foo};
-  }
-
-  if (isType(action, somethingAsync.done)) {
-    return {bar: action.payload.result.bar};
-  }
-
-  return state;
+const INITIAL_STATE: State = {
+    user: null,
+    error: ''
 };
+
+const authReducer = reducerWithInitialState(INITIAL_STATE)
+    .case(actions.loginSuccess, (state: State, user: IUser) => ({ ...state,user: user }))
+  
+    .case(actions.loginFailed, (state: State, error: string) => ({ ...state, error: error }))
