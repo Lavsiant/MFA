@@ -12,7 +12,7 @@ const INITIAL_STATE: State = {
     error: ''
 };
 
-const authReducer = reducerWithInitialState(INITIAL_STATE)
+export const authReducer = reducerWithInitialState(INITIAL_STATE)
     .case(actions.loginSuccess, (state: State, user: IUser) => ({ ...state,user: user }))
   
     .case(actions.loginFailed, (state: State, error: string) => ({ ...state, error: error }))
