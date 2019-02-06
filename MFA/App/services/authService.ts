@@ -1,6 +1,6 @@
 import { isType } from 'typescript-fsa';
-import { config } from '../helpers/config.jsx';
-import IUser from '../interfaces/user.js';
+import { config } from '../helpers/config';
+import IUser from '../interfaces/user/user';
 
 export const authService = {
     login

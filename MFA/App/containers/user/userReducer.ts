@@ -1,18 +1,29 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
-import {actions} from './userActionCreators'
-import IUser from "../../interfaces/user";
+import UserState from "../../interfaces/user/userState";
+import IUser from "../../interfaces/user/user";
+import {getAllUsers} from "./userActions";
 
-interface State {
-    users: IUser[];
-    error: string
-}
 
-const INITIAL_STATE: State = {
+
+const INITIAL_STATE: UserState = {
     users: [],
-    error: ''
+    isLoading: false,
 };
 
 export const userReducer = reducerWithInitialState(INITIAL_STATE)
-    .case(actions.getAllUsers, (state: State, users: IUser[]) => ({ ...state,users: users }))
+    .case(getAllUsers.async.done, (state: UserState,{result: users}) => ({ 
+        ...state,
+        users: users,
+        isLoading:false }))
+    .case(getAllUsers.async.failed, (state, e) => ({
+        ...state,
+        error: e.error,
+        isLoading: false
+    }))
+    .case(getAllUsers.async.started, (state) => ({
+        ...state,
+        isLoading: true
+    }))
+    
   
-    .case(actions.getRequestFailed, (state: State, error: string) => ({ ...state, error: error }))
+    
