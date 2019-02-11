@@ -9,7 +9,7 @@ const srcFolder = "./App/"
 
 module.exports = {
     entry: {
-        app: ['./App/containers/app.jsx', 'webpack-hot-middleware/client'],
+        app: ['./App/index.jsx', 'webpack-hot-middleware/client'],
         vendor: ['react', 'react-dom']
     },    
     resolve: {
@@ -27,13 +27,9 @@ module.exports = {
                 test: /\.(ts|tsx)$/,
                 loader: 'ts-loader'
             },
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" }
         ]
     },
-    plugins: [
-        new HtmlWebpackPlugin({ template: path.resolve(__dirname, 'src', 'app', 'index.html') }),
-        new webpack.HotModuleReplacementPlugin()
-    ]
+   
 };
 
 

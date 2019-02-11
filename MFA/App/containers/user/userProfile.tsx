@@ -1,20 +1,21 @@
-import React from 'react';
-import { bindActionCreators } from 'redux';
+import * as React from 'react';
 import { connect } from 'react-redux'
 import { getAllUsers } from './userActions'
 import UserState from '../../interfaces/user/userState';
+import { AppDispatch } from '../../helpers/appDispatch';
+import { bindActionCreators, AnyAction } from 'redux';
 
+interface Props{
+    getAllUsers() : any;
+}
 
-class UserProfile extends React.Component<any,any>  {
+class UserProfile extends React.Component<Props,UserState>  {
     constructor(props: any) {
         super(props);
-        this.state = {
-            
-        };
     }
 
     componentDidMount() {
-        this.props.getAllUsers();
+       this.props.getAllUsers();
      
     }
 
@@ -33,7 +34,11 @@ let mapProps = (state : UserState) => {
     }
 }
 
-const mapDispatch = (dispatch: any) => bindActionCreators({ getAllUsers }, dispatch);
+const mapDispatch = (dispatch : AppDispatch) => bindActionCreators(
+    {
+    getAllUsers : getAllUsers.action
+    },
+    dispatch);
     
 
 export default connect(mapProps, mapDispatch)(UserProfile) 
