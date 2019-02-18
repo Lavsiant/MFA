@@ -15,9 +15,11 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js']
     },
     devtool: "inline-source-map",
-    output: {      
-        path: path.resolve(__dirname, bundleFolder),
-        filename: "bundle.js"
+    output: {  
+        filename: "bundle.js",
+        publicPath: 'assets/',
+        path: path.resolve(__dirname, bundleFolder)
+       
     },
     module: {
         rules: [
