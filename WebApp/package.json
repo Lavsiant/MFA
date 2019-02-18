@@ -1,0 +1,54 @@
+{
+  "name": "mfa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "webpack-script": "webpack"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aspnet-webpack": "^2.0.3",
+    "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^0.28.7",
+    "file-loader": "^1.1.6",
+    "html-webpack-plugin": "^3.2.0",
+    "source-map-loader": "^0.2.4",
+    "style-loader": "^0.19.1",
+    "ts-loader": "^3.5.0",
+    "typescript": "^3.3.3",
+    "webpack": "^4.29.4",
+    "webpack-cli": "^3.2.3",
+    "webpack-dev-middleware": "^3.5.1",
+    "webpack-hot-middleware": "^2.24.3",
+    "clean-webpack-plugin": "^0.1.16"
+  },
+  "dependencies": {
+    "@types/node": "^11.9.4",
+    "@types/react": "^16.8.3",
+    "@types/react-dom": "^16.8.2",
+    "@types/react-redux": "^7.0.1",
+    "@types/react-router-dom": "^4.3.1",
+    "@types/webpack-env": "^1.13.7",
+    "express": "^4.16.4",
+    "isomorphic-fetch": "^2.2.1",
+    "query-string": "^5.0.1",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-redux": "^5.1.1",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0",
+    "redux-thunk": "^2.3.0",
+    "typescript": "^3.3.1",
+    "typescript-fsa": "^3.0.0-beta-2",
+    "typescript-fsa-reducers": "^1.2.0",
+    "typescript-fsa-redux-thunk": "^2.0.0-beta.11"
+  },
+  "-vs-binding": {
+    "BeforeBuild": [
+      "webpack-script"
+    ]
+  }
+}

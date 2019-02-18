@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript">
+        var constants = {
+            getUsers: '@Url.RouteUrl("DefaultApi", new {controller = "Identity", action = "all" })',          
+        }
+    </script>
+
+   
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <title>MFA</title>
+</head>
+<body>
+    <div id="content">
+    </div>
+    <script type="text/javascript" src="@Url.Content("~/assets/bundle.js")"></script>
+</body>
+</html>
