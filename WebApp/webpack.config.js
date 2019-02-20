@@ -2,7 +2,6 @@
 
 const webpack = require('webpack');
 const path = require('path');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const bundleFolder = "./wwwroot/assets/";
 const srcFolder = "./src/"
@@ -31,7 +30,4 @@ module.exports = {
             }
         ]
     },
-    plugins: [
-        new CleanWebpackPlugin([bundleFolder])
-    ]
 };

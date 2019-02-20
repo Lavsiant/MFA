@@ -2,7 +2,7 @@
   "name": "mfa",
   "version": "1.0.0",
   "description": "",
-  "main": "index.tsx",
+  "main": "index.js",
   "scripts": {
     "webpack-script": "webpack"
   },
