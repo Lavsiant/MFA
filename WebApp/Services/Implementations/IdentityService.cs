@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Model;
 
 namespace WebApp.Services.Implementations
 {
@@ -17,9 +18,14 @@ namespace WebApp.Services.Implementations
             _identityRepository = identityRepository;
         }
 
-        public async Task<List<IdentityUser>> GetAllUsers()
+        public async Task<List<User>> GetAllUsers()
         {
             return await _identityRepository.GetAllUsers();
+        }
+
+        public async Task<User> GetUser(string username)
+        {
+            return await _identityRepository.GetUser(username);
         }
     }
 }

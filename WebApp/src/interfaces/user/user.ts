@@ -1,3 +1,7 @@
 export default interface IUser {
-    username: string;
+    login: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    token?: string;
 }

@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Model;
 
 namespace WebApp.Controllers
 {
@@ -20,7 +21,7 @@ namespace WebApp.Controllers
 
         [Route("all")]
         [HttpGet]
-        public async Task<ICollection<IdentityUser>> GetAllUsers()
+        public async Task<ICollection<User>> GetAllUsers()
         {
             return await _identityService.GetAllUsers();
         }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,7 +9,8 @@ namespace DbRepository.Interfaces
 {
     public interface IIdentityRepository
     {
-        Task<List<IdentityUser>> GetAllUsers();
+        Task<List<User>> GetAllUsers();
 
+        Task<User> GetUser(string login);
     }
 }

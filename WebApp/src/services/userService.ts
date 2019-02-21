@@ -1,4 +1,4 @@
-import { config } from '../helpers/config.js';
+import { config } from '../helpers/config';
 import IUser from '../interfaces/user/user';
 
 export const userService = {    

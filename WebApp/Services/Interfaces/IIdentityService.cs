@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,8 @@ namespace WebApp.Services.Interfaces
 {
     public interface IIdentityService
     {
-        Task<List<IdentityUser>> GetAllUsers();
+        Task<List<User>> GetAllUsers();
+
+        Task<User> GetUser(string username);
     }
 }
