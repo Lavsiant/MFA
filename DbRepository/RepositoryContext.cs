@@ -8,11 +8,13 @@ using System.Text;
 
 namespace DbRepository
 {
-    public class RepositoryContext : IdentityDbContext<User>
+    public class RepositoryContext : DbContext
     {
         public RepositoryContext(DbContextOptions<RepositoryContext> options) : base(options)
         {
 
         }
+
+        public DbSet<User> Users { get; set; }
     }
 }

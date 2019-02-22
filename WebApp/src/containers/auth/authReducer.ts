@@ -11,9 +11,8 @@ const INITIAL_STATE: AuthState = {
 };
 
 export const userReducer = reducerWithInitialState(INITIAL_STATE)
-    .case(register.async.done, (state: UserState,{result: user}) => ({ 
+    .case(register.async.done, (state: UserState,{}) => ({ 
         ...state,
-        user: user,
         isLoading:false }))
     .case(register.async.failed, (state, e) => ({
         ...state,

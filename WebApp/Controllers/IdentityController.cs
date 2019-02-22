@@ -23,6 +23,8 @@ namespace WebApp.Controllers
         [HttpGet]
         public async Task<ICollection<User>> GetAllUsers()
         {
+            
+            
             return await _identityService.GetAllUsers();
         }
     }

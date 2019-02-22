@@ -25,9 +25,25 @@ namespace DbRepository.Repositories
         {
             using(var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Users.FirstOrDefaultAsync(x => x.UserName == login);
+                return await context.Users.FirstOrDefaultAsync(x => x.Login == login);
             }
         }
 
+        public async Task<User> GetUserByLoginPassword(string login, string password)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.FirstOrDefaultAsync(x => x.Login.Equals(login) && x.Password.Equals(password));
+            }
+        }
+
+        public async Task CreateUser(User user)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                context.Users.Add(user);
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

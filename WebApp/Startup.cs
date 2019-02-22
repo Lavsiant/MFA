@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -32,13 +33,14 @@ namespace WebApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            services.AddDefaultIdentity<User>()
-               .AddEntityFrameworkStores<RepositoryContext>();
+
+            services.AddDbContext<RepositoryContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
-            services.AddScoped<IIdentityRepository>(provider => new IdentityRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>())); // 2
-            services.AddScoped<IIdentityService, IdentityService>();
-            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IIdentityRepository>(provider => new IdentityRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+            services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IIdentityService, IdentityService>();   
         }
 
 
@@ -57,7 +59,6 @@ namespace WebApp
             }
 
             app.UseStaticFiles();
-            app.UseAuthentication();
             app.UseHttpsRedirection();
             app.UseMvc();
 
@@ -67,7 +68,7 @@ namespace WebApp
                 routes.MapRoute(
                     name: "DefaultApi",
                     template: "api/{controller}/{action}");
-                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" }); // 2
+                routes.MapSpaFallbackRoute("spa-fallback", new { controller = "Home", action = "Index" });
             });
         }
     }

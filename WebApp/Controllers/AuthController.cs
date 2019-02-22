@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Model;
 using System;
 using System.Collections.Generic;
@@ -21,11 +22,28 @@ namespace WebApp.Controllers
             _authService = authService;
         }
 
+        [Route("login")]
+        [HttpPost]
+        public async Task Login([FromBody] LoginViewModel loginVM)
+        {
+            var token = await _authService.Login(loginVM);
+            UpdateCookieToken(token);
+        }
+
         [Route("register")]
         [HttpPost]
-        public async Task<User> Register([FromBody] RegisterViewModel registerVM)
+        public async Task Register([FromBody] RegisterViewModel registerVM)
         {
-            return  await _authService.Register(registerVM);
+            var token = await _authService.Register(registerVM);
+            UpdateCookieToken(token);
+
+        }
+
+        private void UpdateCookieToken(Token token)
+        {
+            var response = HttpContext.Response;
+            response.Cookies.Delete("token");
+            response.Cookies.Append("token", token.Value,new CookieOptions() { Expires = token.IssueDate.AddDays(1)});
         }
     }
 }

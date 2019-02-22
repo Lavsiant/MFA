@@ -9,8 +9,8 @@ namespace WebApp.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task Login(LoginViewModel loginVM);
+        Task<Token> Login(LoginViewModel loginVM);
 
-        Task<User> Register(RegisterViewModel registerVM);
+        Task<Token> Register(RegisterViewModel registerVM);
     }
 }

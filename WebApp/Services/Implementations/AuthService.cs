@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using DbRepository.Interfaces;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using WebApp.Models.Exceptions;
 using WebApp.Services.Interfaces;
@@ -12,47 +16,67 @@ namespace WebApp.Services.Implementations
 {
     public class AuthService : IAuthService
     {
-        private readonly SignInManager<IdentityUser> _signInManager;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly IIdentityService _identityService;
+        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly IAuthRepository _authRepository;
+        private readonly IIdentityRepository _identityRepository;
 
-        public AuthService(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            IdentityService identityService)
+        public AuthService(IAuthRepository authRepository, IIdentityRepository identityRepository)
         {
-            _signInManager = signInManager;
-            _userManager = userManager;
-            _identityService = identityService;
+            _identityRepository = identityRepository;
+            _authRepository = authRepository;
         }
 
-        public async Task Login(LoginViewModel loginVM)
+        public async Task<Token> Login(LoginViewModel vm)
         {
-
-        }
-
-        public async Task<User> Register(RegisterViewModel registerVM)
-        {
-            var user = new User()
-            {
-                UserName = registerVM.Login,
-                Email = registerVM.Email,
-                FirstName = registerVM.FirstName,
-                LastName = registerVM.LastName
-            };
-
-            var result = await _userManager.CreateAsync(user, registerVM.Password);
-
-            if (result.Succeeded)
-            {
-                await _signInManager.SignInAsync(user, false);
+            var user = await _identityRepository.GetUserByLoginPassword(vm.Login, GetHash(vm.Password));
+            if (user != null)
+            {                
+                var token = GenerateToken(user.Login, DateTime.Now);         
+                await _authRepository.UpdateUserToken(user.ID, token);
+                return token;
             }
             else
             {
-                throw new RegisterErrorException(result.Errors);
+                throw new Exception();
             }
+           
+        }
 
-            return await _identityService.GetUser(user.UserName);
+        public async Task<Token> Register(RegisterViewModel registerVM)
+        {
+            var user = new User()
+            {
+                Login = registerVM.Login,
+                Email = registerVM.Email,
+                Password = GetHash(registerVM.Password)
+            };
+            await _identityRepository.CreateUser(user);
+
+            return GenerateToken(user.Login, DateTime.Now);
+        }
+
+        private Token GenerateToken(string login, DateTime dateTime)
+        {
+            string value = login + dateTime.ToLongDateString();
+            var valueHash = GetHash(value);
+            var token = new Token()
+            {
+                Value = valueHash,
+                IssueDate = dateTime
+            };
+            return token;
+        }
+
+        private string GetHash(string value)
+        {
+            using (SHA256 hash = SHA256Managed.Create())
+            {                
+                return String.Concat(hash
+                  .ComputeHash(Encoding.UTF8.GetBytes(value))
+                  .Select(item => item.ToString("x2")));
+
+            }
         }
     }
 }

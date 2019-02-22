@@ -11,7 +11,7 @@ import AuthState from '../../interfaces/auth/authState';
 var factory = actionCreatorFactory();
 var createAsync = asyncFactory<AuthState>(factory);
 
-export const register = createAsync<RegisterUserModel,IUser>(
+export const register = createAsync<RegisterUserModel,{}>(
   'register',
   async (p : RegisterUserModel,d: any) =>{
   return await authService.register(p);
