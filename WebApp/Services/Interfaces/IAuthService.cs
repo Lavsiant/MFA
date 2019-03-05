@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WebApp.Models.Enums;
 using WebApp.ViewModels;
 
 namespace WebApp.Services.Interfaces
@@ -12,5 +13,7 @@ namespace WebApp.Services.Interfaces
         Task<Token> Login(LoginViewModel loginVM);
 
         Task<Token> Register(RegisterViewModel registerVM);
+
+        Task<CheckTokenResult> CheckIfTokenValid(string tokenValue,string username);
     }
 }

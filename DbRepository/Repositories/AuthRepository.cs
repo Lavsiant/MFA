@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,6 +21,15 @@ namespace DbRepository.Repositories
                 user.Token = token;
                 await context.SaveChangesAsync();
             }
-        }      
+        }
+
+        public async Task<Token> GetToken(string username)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var user = await context.Users.Include(x => x.Token).FirstOrDefaultAsync(x => x.Login == username);
+                return user == null ? user.Token : null;                 
+            }
+        }
     }
 }

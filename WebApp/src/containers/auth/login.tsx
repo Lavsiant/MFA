@@ -3,16 +3,112 @@ import { connect } from 'react-redux'
 import UserState from '../../interfaces/user/userState';
 import { AppDispatch } from '../../helpers/appDispatch';
 import { bindActionCreators, AnyAction } from 'redux';
+import AuthState from '../../interfaces/auth/authState';
+import { login } from './authActions';
+import { LoginModel } from '../../interfaces/auth/loginModel';
+import {Paper, TextField, Button} from '@material-ui/core'
 
 interface LoginProps{
-
+    login(loginModel: LoginModel) : void
 }
 
 interface LoginState{
-    login: string;
-    password: string;
+    loginModel: LoginModel
 }
 
-class Login extends React.Component<LoginProps,LoginState>{
+class LoginPage extends React.Component<LoginProps,LoginState>{
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            loginModel: {
+                login: '',
+                password: ''
+            }
+        };
+    }
+ 
+    handleChange = (event) => {
+        const { name, value } = event.target;
+        const {loginModel} = this.state;
+        this.setState({
+            loginModel:{
+                ...loginModel,
+                [name]: value
+            }
+        })
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        const { loginModel } = this.state;
+        this.props.login(loginModel);
+    }
+
+
+    render() {
+        const { loginModel } = this.state;
+       
+        return (
+            <Paper className='login' style={{marginTop:200}}>
+                <div>
+                    <h2>Login</h2>
+                    <form name="form" onSubmit={this.handleSubmit}>
+                       
+                        <div className='login-field' >
+                        <TextField
+                                style={{ width: '90%' }}
+                                label= "Login"                   
+                                type="text"
+                                name="login"
+                                autoComplete="Username"
+                                margin="normal"
+                                variant="outlined"
+                                value={loginModel.login}
+                                onChange={this.handleChange}
+                                required
+                            />    
+                           
+                        </div>
+                        <div className='login-field'>
+                        <TextField
+                                style={{ width: '90%' }}
+                                label="Passwprd"
+                                type="password"
+                                name="password"
+                                autoComplete="Username"
+                                margin="normal"
+                                variant="outlined"
+                                value={loginModel.password}
+                                onChange={this.handleChange}
+                                required
+                            />    
+                          
+                        </div>
+
+                        <div className="form-group" style={{paddingBottom: 20}}>
+                            <Button size="large" variant="contained" type='submit' style={{ marginBottom:20}}  color="primary">
+                                Register
+                            </Button>
+                        </div>
+                    </form>
+                </div>
+            </Paper>
+        );
+    }
 }
+
+let mapProps = (state : AuthState) => {
+    return {
+        error: state.error
+    }
+}
+
+const mapDispatch = (dispatch : AppDispatch) => bindActionCreators(
+    {
+    login : login.action
+    },
+    dispatch);
+    
+export default connect(mapProps,mapDispatch)(LoginPage);
+

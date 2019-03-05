@@ -8,27 +8,22 @@ export const authService = {
     register
 };
 
-function login(username: string, password: string) : Promise<IUser> {
+function login(username: string, password: string) : Promise<void> {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
     };
     localStorage.removeItem('user');
-    return fetch(config.apiUrl + '/api/identity/authenticate', requestOptions)
+    return fetch(config.apiUrl + '/api/identity/login', requestOptions)
         .then(response => {
             if(!response.ok){
                 throw new Error(response.statusText);
-            }
-            return response.json();
+            }                 
         })
-        .then(data => {    
-            localStorage.setItem('user', JSON.stringify(data.data));
-            return data.data
-        });
 }
 
-function register(user: RegisterUserModel) : Promise<IUser>{
+function register(user: RegisterUserModel) : Promise<void>{
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
@@ -39,11 +34,8 @@ function register(user: RegisterUserModel) : Promise<IUser>{
             if(!response.ok){
                 throw new Error(response.statusText);
             }
-            return response.json();
-        })
-        .then(data => {  
-            localStorage.setItem('token', JSON.stringify(data.token));  
-            return data.data
+        
         });
+      
 }
 

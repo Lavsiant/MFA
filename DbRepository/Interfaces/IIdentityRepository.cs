@@ -15,6 +15,8 @@ namespace DbRepository.Interfaces
 
         Task<User> GetUserByLoginPassword(string login, string password);
 
+        Task<User> GetUserByLoginOrEmail(string login, string email);
+
         Task CreateUser(User user);
     }
 }

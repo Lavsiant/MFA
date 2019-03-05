@@ -8,6 +8,8 @@ namespace DbRepository.Interfaces
 {
     public interface IAuthRepository
     {
-        Task UpdateUserToken(int id, Token token);  
+        Task UpdateUserToken(int id, Token token);
+
+        Task<Token> GetToken(string username);                
     }
 }

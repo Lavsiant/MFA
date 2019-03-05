@@ -10,6 +10,6 @@ namespace Model
 
         public string Value { get; set; }
 
-        public DateTime IssueDate { get; set; }
+        public DateTime ExpiredDate { get; set; }
     }
 }

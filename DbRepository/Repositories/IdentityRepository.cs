@@ -45,5 +45,13 @@ namespace DbRepository.Repositories
                 await context.SaveChangesAsync();
             }
         }
+
+        public async Task<User> GetUserByLoginOrEmail(string login, string email)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.FirstOrDefaultAsync(x => x.Login.Equals(login) || x.Email.Equals(email));
+            }
+        }
     }
 }

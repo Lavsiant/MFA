@@ -8,6 +8,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using WebApp.Models.Enums;
 using WebApp.Models.Exceptions;
 using WebApp.Services.Interfaces;
 using WebApp.ViewModels;
@@ -16,8 +17,6 @@ namespace WebApp.Services.Implementations
 {
     public class AuthService : IAuthService
     {
-        private readonly SignInManager<User> _signInManager;
-        private readonly UserManager<User> _userManager;
         private readonly IAuthRepository _authRepository;
         private readonly IIdentityRepository _identityRepository;
 
@@ -45,15 +44,48 @@ namespace WebApp.Services.Implementations
 
         public async Task<Token> Register(RegisterViewModel registerVM)
         {
+            var userWithCredentials = await _identityRepository.GetUserByLoginOrEmail(registerVM.Login, registerVM.Email);
+
+            if (userWithCredentials != null)
+            {
+                if (userWithCredentials.Login.Equals(registerVM.Login))
+                {
+                    throw new RegisterErrorException("This username is already exists");
+                }
+                else if (userWithCredentials.Email.Equals(registerVM.Email))
+                {
+                    throw new RegisterErrorException("This email is alreay exists");
+                }
+            }          
+
             var user = new User()
             {
                 Login = registerVM.Login,
                 Email = registerVM.Email,
                 Password = GetHash(registerVM.Password)
             };
+            
+            var token = GenerateToken(user.Login, DateTime.Now);
+            user.Token = token;
             await _identityRepository.CreateUser(user);
 
-            return GenerateToken(user.Login, DateTime.Now);
+            return token;
+        }
+
+        public async Task<CheckTokenResult> CheckIfTokenValid(string tokenValue, string username)
+        {
+            var userToken = await _authRepository.GetToken(tokenValue);
+            if (userToken == null || !userToken.Value.Equals(tokenValue))
+            {
+                return CheckTokenResult.InvalidToken;
+            }
+
+            if(DateTime.Now > userToken.ExpiredDate)
+            {
+                return CheckTokenResult.TokenExpired;
+            }
+
+            return CheckTokenResult.Success;
         }
 
         private Token GenerateToken(string login, DateTime dateTime)
@@ -63,7 +95,7 @@ namespace WebApp.Services.Implementations
             var token = new Token()
             {
                 Value = valueHash,
-                IssueDate = dateTime
+                ExpiredDate = dateTime.AddDays(1)
             };
             return token;
         }

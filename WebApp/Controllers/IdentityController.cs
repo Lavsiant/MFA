@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApp.Controllers
 {
@@ -21,10 +22,9 @@ namespace WebApp.Controllers
 
         [Route("all")]
         [HttpGet]
+        [Authorize(AuthenticationSchemes = "Basic")]
         public async Task<ICollection<User>> GetAllUsers()
-        {
-            
-            
+        {                      
             return await _identityService.GetAllUsers();
         }
     }

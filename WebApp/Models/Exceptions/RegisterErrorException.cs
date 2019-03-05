@@ -10,11 +10,10 @@ namespace WebApp.Models.Exceptions
     {
         public RegisterErrorException() { }
 
-        public RegisterErrorException(IEnumerable<IdentityError> errors)
+        public RegisterErrorException(string message) : base(message)
         {
-            Errors = errors;
+
         }
 
-        public IEnumerable<IdentityError> Errors { get; set; }
     }
 }

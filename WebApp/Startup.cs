@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using DbRepository;
 using DbRepository.Factories;
 using DbRepository.Interfaces;
 using DbRepository.Repositories;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -17,6 +19,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Model;
+using WebApp.Helpers;
 using WebApp.Services.Implementations;
 using WebApp.Services.Interfaces;
 
@@ -39,8 +42,11 @@ namespace WebApp
 
             services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
             services.AddScoped<IIdentityRepository>(provider => new IdentityRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
+            services.AddScoped<IAuthRepository>(provider => new AuthRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
             services.AddTransient<IAuthService, AuthService>();
-            services.AddTransient<IIdentityService, IdentityService>();   
+            services.AddTransient<IIdentityService, IdentityService>();
+            services.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme)
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", null);
         }
 
 
@@ -61,7 +67,7 @@ namespace WebApp
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc();
-
+            Mapper.
 
             app.UseMvc(routes =>
             {

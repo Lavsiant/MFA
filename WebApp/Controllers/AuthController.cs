@@ -27,7 +27,7 @@ namespace WebApp.Controllers
         public async Task Login([FromBody] LoginViewModel loginVM)
         {
             var token = await _authService.Login(loginVM);
-            UpdateCookieToken(token);
+            UpdateCookieToken(token,loginVM.Login);
         }
 
         [Route("register")]
@@ -35,15 +35,17 @@ namespace WebApp.Controllers
         public async Task Register([FromBody] RegisterViewModel registerVM)
         {
             var token = await _authService.Register(registerVM);
-            UpdateCookieToken(token);
+            UpdateCookieToken(token,registerVM.Login);
 
         }
 
-        private void UpdateCookieToken(Token token)
+        private void UpdateCookieToken(Token token, string username = null)
         {
             var response = HttpContext.Response;
             response.Cookies.Delete("token");
-            response.Cookies.Append("token", token.Value,new CookieOptions() { Expires = token.IssueDate.AddDays(1)});
+            response.Cookies.Delete("user");
+            response.Cookies.Append("token", token.Value,new CookieOptions() { Expires = token.ExpiredDate});
+            response.Cookies.Append("user", username);
         }
     }
 }
