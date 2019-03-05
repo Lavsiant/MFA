@@ -4,20 +4,19 @@ import UserState from '../../interfaces/user/userState';
 import { AppDispatch } from '../../helpers/appDispatch';
 import { bindActionCreators, AnyAction } from 'redux';
 import AuthState from '../../interfaces/auth/authState';
-import { login } from './authActions';
 import { LoginModel } from '../../interfaces/auth/loginModel';
 import {Paper, TextField, Button} from '@material-ui/core'
 import IUser from '../../interfaces/user/user';
+import { HomeState } from '../../interfaces/home/homeState';
+import { getAllUsers } from '../user/userActions';
 
 interface HomeProps{
     getAllUsers() : IUser[]
 }
 
-interface HomeState{
-    
-}
+interface State{}
 
-class HomePage extends React.Component<HomeProps,HomeState>{
+class HomePage extends React.Component<HomeProps,State>{
     constructor(props) {
         super(props);
     }
@@ -26,8 +25,7 @@ class HomePage extends React.Component<HomeProps,HomeState>{
         this.props.getAllUsers();
     }
 
-    render() {
-       
+    render() {       
         return (
            <div>Home page!</div>
         );
@@ -36,14 +34,15 @@ class HomePage extends React.Component<HomeProps,HomeState>{
 
 let mapProps = (state : HomeState) => {
     return {
+        users: state.users,
         error: state.error
     }
 }
 
 const mapDispatch = (dispatch : AppDispatch) => bindActionCreators(
     {
-    login : login.action
+    getAllUsers : getAllUsers.action
     },
     dispatch);
     
-export default connect(mapProps,mapDispatch)(LoginPage);
+export default connect(mapProps,mapDispatch)(HomePage);

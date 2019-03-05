@@ -10,6 +10,6 @@ var createAsync = asyncFactory<HomeState>(factory);
 
 export const getAllUsers = createAsync<{},IUser[]>(
   'getAllUsers',
-  async (p ,d: any) =>{
+  async () =>{
   return await userService.getAllUsers();
 });

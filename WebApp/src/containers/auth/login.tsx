@@ -106,7 +106,7 @@ let mapProps = (state : AuthState) => {
 
 const mapDispatch = (dispatch : AppDispatch) => bindActionCreators(
     {
-    login : login.action
+    login: login.action
     },
     dispatch);
     

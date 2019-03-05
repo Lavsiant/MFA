@@ -12,10 +12,10 @@ function getAllUsers() : Promise<IUser[]> {
             throw new Error(response.statusText);
         }
         return response.json();
+    })
+    .then(data => {    
+         return data.data
     });
-    // .then(data => {    
-    //     return data.data
-    // });
 }
 
 function getUser(id: number) : Promise<IUser> {
