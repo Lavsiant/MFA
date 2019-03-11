@@ -88,6 +88,11 @@ namespace WebApp.Services.Implementations
             return CheckTokenResult.Success;
         }
 
+        public async Task<Role> GetUserRole(string username)
+        {
+            return await _authRepository.GetUserRole(username);
+        }
+
         private Token GenerateToken(string login, DateTime dateTime)
         {
             string value = login + dateTime.ToLongDateString();

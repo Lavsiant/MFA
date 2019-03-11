@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Model;
 using WebApp.Helpers;
+using WebApp.Models;
 using WebApp.Services.Implementations;
 using WebApp.Services.Interfaces;
 
@@ -67,7 +68,10 @@ namespace WebApp
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc();
-            Mapper.
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<User, UserModel>();
+            });
 
             app.UseMvc(routes =>
             {

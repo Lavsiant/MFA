@@ -15,5 +15,7 @@ namespace WebApp.Services.Interfaces
         Task<Token> Register(RegisterViewModel registerVM);
 
         Task<CheckTokenResult> CheckIfTokenValid(string tokenValue,string username);
+
+        Task<Role> GetUserRole(string username);
     }
 }

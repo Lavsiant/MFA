@@ -16,5 +16,7 @@ namespace Model
         public string Email { get; set; }
 
         public Token Token { get; set; }
+
+        public Role Role { get; set; }
     }
 }

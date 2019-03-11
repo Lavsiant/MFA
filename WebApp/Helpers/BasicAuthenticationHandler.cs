@@ -52,10 +52,11 @@ namespace WebApp.Helpers
                 case CheckTokenResult.TokenExpired:
                     return AuthenticateResult.Fail("Token expired");
                 case CheckTokenResult.Success:
+                    var role = _authService.GetUserRole(username);
                     var claims = new[] { new Claim(ClaimTypes.Name, username) };
-                    var identity = new ClaimsIdentity(claims, Scheme.Name);
-                    var principal = new ClaimsPrincipal(identity);
-                    var ticket = new AuthenticationTicket(principal, Scheme.Name);
+                    var identity = new ClaimsIdentity(claims, Scheme.Name,Scheme.Name,role.ToString());
+                    var principal = new ClaimsPrincipal(identity);                    
+                    var ticket = new AuthenticationTicket(principal, Scheme.Name);                    
                     return AuthenticateResult.Success(ticket);
                 default: 
                     return AuthenticateResult.Fail("Server error"); 

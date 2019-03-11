@@ -31,5 +31,14 @@ namespace DbRepository.Repositories
                 return user == null ? user.Token : null;                 
             }
         }
+
+        public async Task<Role> GetUserRole(string username)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var user = await context.Users.FirstOrDefaultAsync(x => x.Login.Equals(username));
+                return user == null ? user.Role : Role.Default;
+            }
+        }
     }
 }

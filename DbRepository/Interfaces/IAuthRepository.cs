@@ -10,6 +10,8 @@ namespace DbRepository.Interfaces
     {
         Task UpdateUserToken(int id, Token token);
 
-        Task<Token> GetToken(string username);                
+        Task<Token> GetToken(string username);
+
+        Task<Role> GetUserRole(string username);
     }
 }
