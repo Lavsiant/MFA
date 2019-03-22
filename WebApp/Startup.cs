@@ -23,6 +23,7 @@ using WebApp.Helpers;
 using WebApp.Models;
 using WebApp.Services.Implementations;
 using WebApp.Services.Interfaces;
+using WebApp.ViewModels;
 
 namespace WebApp
 {
@@ -70,7 +71,7 @@ namespace WebApp
             app.UseMvc();
             Mapper.Initialize(cfg =>
             {
-                cfg.CreateMap<User, UserModel>();
+                cfg.CreateMap<User, UserViewModel>();
             });
 
             app.UseMvc(routes =>

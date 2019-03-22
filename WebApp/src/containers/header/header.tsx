@@ -1,14 +1,34 @@
-import * as React from 'react';
 import { Link } from 'react-router-dom';
+import * as React from 'react';
+import { connect } from 'react-redux'
+import AuthState from '../../interfaces/auth/authState';
+import { LoginModel } from '../../interfaces/auth/loginModel';
+import {Paper, TextField, Button} from '@material-ui/core'
+import IUser from '../../interfaces/user/user';
 
-export default class Header extends React.Component {
+interface HeaderProps{
+    user: IUser
+}
+
+class Header extends React.Component<HeaderProps> {
+    constructor(props) {
+        super(props);                    
+    }
+
+    componentDidMount = () => {
+        let x = this.props;
+    }
+
     render() {
         return (
             <header>
                 <menu>
                     <ul>
                         <li>
-                            <Link to="/">Home</Link>
+                        {this.props.user ? 
+                            <Link to="/">{this.props.user.login}</Link>
+                            : <div>PLEASE LOGIN</div>
+                        }
                         </li>
                      
                     </ul>
@@ -16,4 +36,14 @@ export default class Header extends React.Component {
             </header>
         );
     }
-};
+}
+
+let mapProps = (state : any) => {
+    return {
+        error: state.authReducer.error,
+        user: state.authReducer.user
+    }
+}
+    
+export default connect(mapProps)(Header);
+

@@ -11,12 +11,12 @@ import { HomeState } from '../../interfaces/home/homeState';
 import { getAllUsers } from '../user/userActions';
 
 interface HomeProps{
-    getAllUsers() : IUser[]
+    getAllUsers();
+    users: IUser[];
+    error: Error;
 }
 
-interface State{}
-
-class HomePage extends React.Component<HomeProps,State>{
+class HomePage extends React.Component<HomeProps>{
     constructor(props) {
         super(props);
     }
@@ -41,7 +41,7 @@ let mapProps = (state : HomeState) => {
 
 const mapDispatch = (dispatch : AppDispatch) => bindActionCreators(
     {
-    getAllUsers : getAllUsers.action
+      getAllUsers : getAllUsers.action
     },
     dispatch);
     

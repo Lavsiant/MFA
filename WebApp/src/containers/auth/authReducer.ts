@@ -8,28 +8,31 @@ import AuthState from "../../interfaces/auth/authState";
 
 const INITIAL_STATE: AuthState = {    
     isLoading: false,
-    error: null
+    user: null,
+    error: ''
 };
 
-export const userReducer = reducerWithInitialState(INITIAL_STATE)
-    .case(register.async.done, (state,{}) => ({ 
+export const authReducer = reducerWithInitialState(INITIAL_STATE)
+    .case(register.async.done, (state,payload) => ({ 
         ...state,
+        user: payload.result,
         isLoading:false }))
     .case(register.async.failed, (state, e) => ({
         ...state,
-        error: e.error,
+        error: e.error.message,
         isLoading: false
     }))
     .case(register.async.started, (state) => ({
         ...state,
         isLoading: true
     }))
-    .case(login.async.done, (state) => ({
-        ...state
+    .case(login.async.done, (state,payload) => ({
+        ...state,
+        user: payload.result
     }))
     .case(login.async.failed, (state,e) => ({
         ...state,
-        error: e.error 
+        error: e.error.message 
     }))
     
   

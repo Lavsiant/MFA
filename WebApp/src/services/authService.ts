@@ -8,22 +8,26 @@ export const authService = {
     register
 };
 
-function login(username: string, password: string) : Promise<void> {
+function login(login: string, password: string) : Promise<IUser> {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ login, password })
     };
-    localStorage.removeItem('user');
-    return fetch(config.apiUrl + '/api/identity/login', requestOptions)
+
+    return fetch(config.apiUrl + '/api/auth/login', requestOptions)
         .then(response => {
             if(!response.ok){
                 throw new Error(response.statusText);
-            }                 
+            }        
+            return response.json();          
+        })
+        .catch(error=> {
+            return error.message;
         })
 }
 
-function register(user: RegisterUserModel) : Promise<void>{
+function register(user: RegisterUserModel) : Promise<IUser>{
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
@@ -34,7 +38,7 @@ function register(user: RegisterUserModel) : Promise<void>{
             if(!response.ok){
                 throw new Error(response.statusText);
             }
-        
+            return response.json();
         });
       
 }

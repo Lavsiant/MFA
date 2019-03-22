@@ -10,9 +10,9 @@ namespace WebApp.Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<Token> Login(LoginViewModel loginVM);
+        Task<User> Login(LoginViewModel loginVM);
 
-        Task<Token> Register(RegisterViewModel registerVM);
+        Task<User> Register(RegisterViewModel registerVM);
 
         Task<CheckTokenResult> CheckIfTokenValid(string tokenValue,string username);
 

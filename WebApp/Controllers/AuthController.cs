@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model;
 using System;
@@ -24,18 +25,21 @@ namespace WebApp.Controllers
 
         [Route("login")]
         [HttpPost]
-        public async Task Login([FromBody] LoginViewModel loginVM)
+        public async Task<UserViewModel> Login([FromBody] LoginViewModel loginVM)
         {
-            var token = await _authService.Login(loginVM);
-            UpdateCookieToken(token,loginVM.Login);
+            var user = await _authService.Login(loginVM);
+            UpdateCookieToken(user.Token,user.Login);
+            throw new Exception("HEDASd");
+            return Mapper.Map<UserViewModel>(user);
         }
 
         [Route("register")]
         [HttpPost]
-        public async Task Register([FromBody] RegisterViewModel registerVM)
+        public async Task<UserViewModel> Register([FromBody] RegisterViewModel registerVM)
         {
-            var token = await _authService.Register(registerVM);
-            UpdateCookieToken(token,registerVM.Login);
+            var user = await _authService.Register(registerVM);
+            UpdateCookieToken(user.Token,registerVM.Login);
+            return Mapper.Map<UserViewModel>(user);
 
         }
 

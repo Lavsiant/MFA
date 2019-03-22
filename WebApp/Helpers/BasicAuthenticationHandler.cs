@@ -15,7 +15,7 @@ namespace WebApp.Helpers
     internal class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
         private readonly IAuthService _authService;
-        private const string AuthorizationHeaderName = "Authorization";
+        private const string AuthorizationHeaderName = "token";
         private const string BasicSchemeName = "Basic";
 
         public BasicAuthenticationHandler(
@@ -30,19 +30,14 @@ namespace WebApp.Helpers
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            if (!Request.Headers.ContainsKey(AuthorizationHeaderName))
+            if (!Request.Cookies.ContainsKey(AuthorizationHeaderName))
             {
                 //Authorization header not in request
                 return AuthenticateResult.NoResult();
             }
-            string authorizationHeader = Request.Headers[AuthorizationHeaderName];
-            var headerParts = authorizationHeader.Split(':');
-            if (headerParts.Length != 2)
-            {
-                return AuthenticateResult.Fail("Invalid Basic authentication header");
-            }
-            var token = headerParts[0];
-            var username = headerParts[1];
+            string token = Request.Cookies["token"];
+            string username = Request.Cookies["user"];
+                        
             var checkResult = await _authService.CheckIfTokenValid(token, username);
 
             switch (checkResult)

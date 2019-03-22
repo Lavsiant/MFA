@@ -10,6 +10,7 @@ import {Paper, TextField, Button} from '@material-ui/core'
 
 interface LoginProps{
     login(loginModel: LoginModel) : void
+    error: string     
 }
 
 interface LoginState{
@@ -50,14 +51,14 @@ class LoginPage extends React.Component<LoginProps,LoginState>{
         const { loginModel } = this.state;
        
         return (
-            <Paper className='login' style={{marginTop:200}}>
+            <Paper className='login' style={{marginTop:100}}>
                 <div>
                     <h2>Login</h2>
                     <form name="form" onSubmit={this.handleSubmit}>
                        
                         <div className='login-field' >
                         <TextField
-                                style={{ width: '90%' }}
+                                style={{ width: '50%' }}
                                 label= "Login"                   
                                 type="text"
                                 name="login"
@@ -72,7 +73,7 @@ class LoginPage extends React.Component<LoginProps,LoginState>{
                         </div>
                         <div className='login-field'>
                         <TextField
-                                style={{ width: '90%' }}
+                                style={{ width: '50%' }}
                                 label="Passwprd"
                                 type="password"
                                 name="password"
@@ -86,9 +87,12 @@ class LoginPage extends React.Component<LoginProps,LoginState>{
                           
                         </div>
 
+                        {this.props.error ? 
+                        <div>{this.props.error}</div> : null}
+
                         <div className="form-group" style={{paddingBottom: 20}}>
                             <Button size="large" variant="contained" type='submit' style={{ marginBottom:20}}  color="primary">
-                                Register
+                                Login
                             </Button>
                         </div>
                     </form>
@@ -98,9 +102,10 @@ class LoginPage extends React.Component<LoginProps,LoginState>{
     }
 }
 
-let mapProps = (state : AuthState) => {
+let mapProps = (state : any) => {
     return {
-        error: state.error
+        error: state.authReducer.error,
+        user: state.authReducer.user
     }
 }
 

@@ -26,14 +26,15 @@ namespace WebApp.Services.Implementations
             _authRepository = authRepository;
         }
 
-        public async Task<Token> Login(LoginViewModel vm)
+        public async Task<User> Login(LoginViewModel vm)
         {
             var user = await _identityRepository.GetUserByLoginPassword(vm.Login, GetHash(vm.Password));
             if (user != null)
             {                
                 var token = GenerateToken(user.Login, DateTime.Now);         
                 await _authRepository.UpdateUserToken(user.ID, token);
-                return token;
+                user.Token = token;
+                return user;
             }
             else
             {
@@ -42,7 +43,7 @@ namespace WebApp.Services.Implementations
            
         }
 
-        public async Task<Token> Register(RegisterViewModel registerVM)
+        public async Task<User> Register(RegisterViewModel registerVM)
         {
             var userWithCredentials = await _identityRepository.GetUserByLoginOrEmail(registerVM.Login, registerVM.Email);
 
@@ -69,12 +70,12 @@ namespace WebApp.Services.Implementations
             user.Token = token;
             await _identityRepository.CreateUser(user);
 
-            return token;
+            return user;
         }
 
         public async Task<CheckTokenResult> CheckIfTokenValid(string tokenValue, string username)
         {
-            var userToken = await _authRepository.GetToken(tokenValue);
+            var userToken = await _authRepository.GetToken(username);
             if (userToken == null || !userToken.Value.Equals(tokenValue))
             {
                 return CheckTokenResult.InvalidToken;
@@ -95,7 +96,7 @@ namespace WebApp.Services.Implementations
 
         private Token GenerateToken(string login, DateTime dateTime)
         {
-            string value = login + dateTime.ToLongDateString();
+            string value = dateTime.ToLongTimeString() + login;
             var valueHash = GetHash(value);
             var token = new Token()
             {
