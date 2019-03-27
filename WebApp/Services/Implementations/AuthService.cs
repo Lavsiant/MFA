@@ -38,7 +38,7 @@ namespace WebApp.Services.Implementations
             }
             else
             {
-                throw new Exception();
+                throw new AuthException(AuthExceptionType.InvalidLoginOrPassword);
             }
            
         }
@@ -51,11 +51,11 @@ namespace WebApp.Services.Implementations
             {
                 if (userWithCredentials.Login.Equals(registerVM.Login))
                 {
-                    throw new RegisterErrorException("This username is already exists");
+                    throw new AuthException(AuthExceptionType.LoginAlreayExists);
                 }
                 else if (userWithCredentials.Email.Equals(registerVM.Email))
                 {
-                    throw new RegisterErrorException("This email is alreay exists");
+                    throw new AuthException(AuthExceptionType.EmailAlreayExists);
                 }
             }          
 

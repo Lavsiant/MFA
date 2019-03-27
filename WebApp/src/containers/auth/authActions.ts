@@ -21,6 +21,8 @@ export const register = createAsync<RegisterUserModel,IUser>(
 export const login = createAsync<LoginModel,IUser>(
   'login',
   async (p: LoginModel, d: any,) => {
-    return await authService.login(p.login,p.password);
+    const res = await authService.login(p.login,p.password);
+    throw new Error('err');
+    return res;
   }
 )

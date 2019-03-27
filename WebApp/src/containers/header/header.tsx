@@ -8,6 +8,7 @@ import IUser from '../../interfaces/user/user';
 
 interface HeaderProps{
     user: IUser
+    error: string
 }
 
 class Header extends React.Component<HeaderProps> {
@@ -29,6 +30,9 @@ class Header extends React.Component<HeaderProps> {
                             <Link to="/">{this.props.user.login}</Link>
                             : <div>PLEASE LOGIN</div>
                         }
+
+                        <div>{this.props.error}</div>
+
                         </li>
                      
                     </ul>

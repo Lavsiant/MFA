@@ -8,23 +8,18 @@ export const authService = {
     register
 };
 
-function login(login: string, password: string) : Promise<IUser> {
+async function login(login: string, password: string) : Promise<IUser> {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ login, password })
     };
 
-    return fetch(config.apiUrl + '/api/auth/login', requestOptions)
-        .then(response => {
-            if(!response.ok){
-                throw new Error(response.statusText);
-            }        
-            return response.json();          
-        })
-        .catch(error=> {
-            return error.message;
-        })
+    const res = await fetch(config.apiUrl + '/api/auth/login', requestOptions);
+    if(!res.ok){
+        throw new Error('Incorrect login or password');
+    }    
+    return res.json();   
 }
 
 function register(user: RegisterUserModel) : Promise<IUser>{
