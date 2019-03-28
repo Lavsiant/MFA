@@ -7,13 +7,19 @@ const bundleFolder = "./wwwroot/assets/";
 const srcFolder = "./src/"
 
 module.exports = {
+    mode: 'development',
+    devtool: 'inline-source-map',
     entry: [
-        srcFolder + "index"
+        'react-hot-loader/patch',
+        path.resolve('src/index.tsx'),
     ],
     resolve: {
         extensions: ['.js', '.ts', '.tsx']
     },
-    devtool: "inline-source-map",
+    devServer: {
+        historyApiFallback: true,
+        hot: true,
+      },
     output: {  
         filename: '[name].build.js',
         publicPath: 'assets/',
@@ -29,4 +35,7 @@ module.exports = {
             }
         ]
     },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+      ],
 };

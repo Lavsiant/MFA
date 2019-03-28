@@ -22,7 +22,6 @@ export const login = createAsync<LoginModel,IUser>(
   'login',
   async (p: LoginModel, d: any,) => {
     const res = await authService.login(p.login,p.password);
-    throw new Error('err');
     return res;
   }
 )

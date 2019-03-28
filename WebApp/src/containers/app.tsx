@@ -1,17 +1,27 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
 import Header from './header/header';
 import Routing from '../routes/route';
+import { History } from 'history';
+import { ConnectedRouter } from 'connected-react-router'
 
-export default class App extends React.Component {
+interface Props{
+    history: History
+}
+
+export default class App extends React.Component<Props> {
+    constructor(props) {
+        super(props);
+    }
+ 
     render() {
         return (
-            <Router>
+            <ConnectedRouter history={this.props.history}>
                 <div>
                     <Header />
                     <Routing />
                 </div>
-            </Router>
+            </ConnectedRouter>
+           
         );
     }
 };

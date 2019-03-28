@@ -34,8 +34,8 @@ class HomePage extends React.Component<HomeProps>{
 
 let mapProps = (state : HomeState) => {
     return {
-        users: state.users,
-        error: state.error
+        // users: state.users,
+        // error: state.error
     }
 }
 

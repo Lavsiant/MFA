@@ -1,7 +1,9 @@
+import { history } from './../store/configureStore';
 import { isType } from 'typescript-fsa';
 import { config } from '../helpers/config';
 import IUser from '../interfaces/user/user';
 import { RegisterUserModel } from '../interfaces/auth/registerModel';
+import { push } from 'connected-react-router'
 
 export const authService = {
     login,
@@ -17,6 +19,8 @@ async function login(login: string, password: string) : Promise<IUser> {
 
     const res = await fetch(config.apiUrl + '/api/auth/login', requestOptions);
     if(!res.ok){
+        history.push(config.apiUrl + '/home');
+        
         throw new Error('Incorrect login or password');
     }    
     return res.json();   
