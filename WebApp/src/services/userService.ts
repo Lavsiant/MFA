@@ -6,7 +6,7 @@ export const userService = {
 };
 
 function getAllUsers() : Promise<IUser[]> {
-    return fetch(config.apiUrl + '/api/identity/all')
+    return fetch('/api/identity/all')
     .then(response => {
         if(!response.ok){
             throw new Error(response.statusText);

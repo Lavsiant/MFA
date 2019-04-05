@@ -38,7 +38,7 @@ namespace WebApp.Services.Implementations
             }
             else
             {
-                throw new AuthException(AuthExceptionType.InvalidLoginOrPassword);
+                throw new TypedException(ExceptionType.InvalidLoginOrPassword);
             }
            
         }
@@ -51,11 +51,11 @@ namespace WebApp.Services.Implementations
             {
                 if (userWithCredentials.Login.Equals(registerVM.Login))
                 {
-                    throw new AuthException(AuthExceptionType.LoginAlreayExists);
+                    throw new TypedException(ExceptionType.LoginAlreayExists);
                 }
                 else if (userWithCredentials.Email.Equals(registerVM.Email))
                 {
-                    throw new AuthException(AuthExceptionType.EmailAlreayExists);
+                    throw new TypedException(ExceptionType.EmailAlreayExists);
                 }
             }          
 

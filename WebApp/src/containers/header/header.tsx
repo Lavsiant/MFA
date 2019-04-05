@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import * as React from 'react';
 import { connect } from 'react-redux'
 import AuthState from '../../interfaces/auth/authState';

@@ -47,6 +47,7 @@ namespace WebApp
             services.AddScoped<IAuthRepository>(provider => new AuthRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IIdentityService, IdentityService>();
+            services.AddScoped<IExceptionService, ExceptionService>();
             services.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme)
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", null);
         }
@@ -61,11 +62,10 @@ namespace WebApp
                 app.UseWebpackDevMiddleware();
             }
             else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+            {              
                 app.UseHsts();
             }
-
+            app.UseMiddleware<ExceptionMiddleware>();
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc();

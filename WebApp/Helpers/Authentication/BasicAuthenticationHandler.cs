@@ -8,6 +8,7 @@ using System.Security.Claims;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using WebApp.Models.Enums;
+using WebApp.Models.Exceptions;
 using WebApp.Services.Interfaces;
 
 namespace WebApp.Helpers
@@ -43,9 +44,9 @@ namespace WebApp.Helpers
             switch (checkResult)
             {
                 case CheckTokenResult.InvalidToken:
-                    return AuthenticateResult.Fail("Invalid token");
+                    throw new TypedException(ExceptionType.InvalidToken);                   
                 case CheckTokenResult.TokenExpired:
-                    return AuthenticateResult.Fail("Token expired");
+                    throw new TypedException(ExceptionType.TokenExpired);
                 case CheckTokenResult.Success:
                     var role = _authService.GetUserRole(username);
                     var claims = new[] { new Claim(ClaimTypes.Name, username) };

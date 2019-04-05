@@ -1,44 +1,41 @@
-import { history } from './../store/configureStore';
-import { isType } from 'typescript-fsa';
+
 import { config } from '../helpers/config';
 import IUser from '../interfaces/user/user';
+import Response from '../interfaces/response'
 import { RegisterUserModel } from '../interfaces/auth/registerModel';
-import { push } from 'connected-react-router'
+import { LoginModel } from '../interfaces/auth/loginModel';
+
 
 export const authService = {
     login,
     register
 };
 
-async function login(login: string, password: string) : Promise<IUser> {
+async function login(model: LoginModel) : Promise<Response<IUser>> {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ login, password })
+        body: JSON.stringify(model)
     };
 
-    const res = await fetch(config.apiUrl + '/api/auth/login', requestOptions);
-    if(!res.ok){
-        history.push(config.apiUrl + '/home');
-        
-        throw new Error('Incorrect login or password');
+    const res = await fetch('/api/auth/login', requestOptions);
+    if(!res.ok){              
+        throw new Error('Internal error');
     }    
     return res.json();   
 }
 
-function register(user: RegisterUserModel) : Promise<IUser>{
+async function register(user: RegisterUserModel) : Promise<IUser>{
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify(user)
     }
-    return fetch(config.apiUrl + '/api/auth/register',requestOptions)
-        .then(response => {
-            if(!response.ok){
-                throw new Error(response.statusText);
-            }
-            return response.json();
-        });
-      
+
+    const res = await fetch('/api/auth/register',requestOptions);
+    if(!res.ok){
+        throw new Error('Register error');
+    }
+    return res.json();      
 }
 

@@ -27,8 +27,16 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var user = await context.Users.Include(x => x.Token).FirstOrDefaultAsync(x => x.Login == username);
-                return user == null ? user.Token : null;                 
+                try
+                {
+                    var user = await context.Users.Include(x => x.Token).FirstOrDefaultAsync(x => x.Login == username);
+                    return user != null ? user.Token : null;
+                }
+                catch (Exception e)
+                {
+
+                }
+                return null;
             }
         }
 

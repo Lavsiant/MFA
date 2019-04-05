@@ -17,5 +17,6 @@ namespace WebApp.Services.Interfaces
         Task<CheckTokenResult> CheckIfTokenValid(string tokenValue,string username);
 
         Task<Role> GetUserRole(string username);
+
     }
 }

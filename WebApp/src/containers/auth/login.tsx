@@ -43,7 +43,8 @@ class LoginPage extends React.Component<LoginProps,LoginState>{
     handleSubmit = (event) => {
         event.preventDefault();
         const { loginModel } = this.state;
-        this.props.login(loginModel);
+        const sss = this.props.login(loginModel);
+        console.log(sss);
     }
 
 

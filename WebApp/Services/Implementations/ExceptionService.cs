@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using WebApp.Models;
 using WebApp.Models.Exceptions;
 using WebApp.Services.Interfaces;
 
@@ -9,19 +11,51 @@ namespace WebApp.Services.Implementations
 {
     public class ExceptionService : IExceptionService
     {
-        public string GetAuthExceptionMessageText(AuthExceptionType exType)
+        public string GetExceptionMessageText(ExceptionType exType)
         {
             switch (exType)
             {
-                case AuthExceptionType.EmailAlreayExists:
+                case ExceptionType.EmailAlreayExists:
                     return "This email is alreay exists";
-                case AuthExceptionType.LoginAlreayExists:
+                case ExceptionType.LoginAlreayExists:
                     return "This login is alreay exists";
-                case AuthExceptionType.InvalidLoginOrPassword:
+                case ExceptionType.InvalidLoginOrPassword:
                     return "Invalid login or password";
+                case ExceptionType.TokenExpired:
+                    return "Token expired";
+                case ExceptionType.InvalidToken:
+                    return "Invalid token";
                 default:
-                    return "Authentication error";
+                    return "Internal error";
             }
+        }
+
+        public Response GetResponseByExceptionType(ExceptionType exType)
+        {
+            HttpStatusCode statusCode;
+            switch (exType)
+            {
+                case ExceptionType.InvalidToken:        
+                case ExceptionType.TokenExpired:
+                    statusCode = HttpStatusCode.Unauthorized;
+                    break;
+                case ExceptionType.LoginAlreayExists:
+                case ExceptionType.EmailAlreayExists:
+                case ExceptionType.InvalidLoginOrPassword:
+                    statusCode = HttpStatusCode.BadRequest;
+                    break;
+                default:
+                    statusCode = HttpStatusCode.InternalServerError;
+                    break;                
+            }
+
+            return new Response()
+            {
+                StatusCode = statusCode,
+                ErrorMessage = GetExceptionMessageText(exType),
+                Success = false
+            };
+
         }
     }
 }
