@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Model.State
 {
-    public enum Mood
+    class Mood
     {
-        Sad,
-        Glad,
-        Inspired,
-        Enamored,
+        public string Name { get; set; }
+
+        [Key]
+        public MoodType Type { get; set; }
     }
 }

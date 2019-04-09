@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Model.State
 {
-    public enum Location
+    class Location
     {
-        Transport,
-        Home,
-        Work,
-        Nature
+        public string Name { get; set; }
+
+        [Key]
+        public LocationType Type { get; set; }
     }
 }

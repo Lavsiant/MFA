@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace Model.State
 {
-    public enum Weather
+    class Weather
     {
-        Rained,
-        Sunny,
-        Snow,
-        Cloudy,
-        ThunderStorm,
-        Hot
+        public string Name { get; set; }
+
+        [Key]
+        public WeatherType Type { get; set; }
     }
 }
