@@ -3,12 +3,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Model.User
+namespace Model
 {
     public class GenrePreference
     {
-        public GenreType Genre { get; set; }
+        public Genre Genre { get; set; }
 
-        public int MyProperty { get; set; }
+        public Preference Preference { get; set; }
     }
 }

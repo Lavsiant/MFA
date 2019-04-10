@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Model.State
+namespace Model
 {
-    public enum WeatherType
+    public enum Weather
     {
         Rained,
         Sunny,

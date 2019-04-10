@@ -7,6 +7,11 @@ namespace Model
 {
     public class User 
     {
+        public User()
+        {
+            UserSongs = new List<UserSong>();
+        }
+
         public int ID { get; set; }
 
         public string Login { get; set; }
@@ -18,5 +23,11 @@ namespace Model
         public Token Token { get; set; }
 
         public Role Role { get; set; }
+
+        public State State { get; set; }
+
+        public GenrePreference Preferences { get; set; }
+
+        public List<UserSong> UserSongs { get; set; }
     }
 }
