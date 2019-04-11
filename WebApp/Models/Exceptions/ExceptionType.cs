@@ -11,6 +11,7 @@ namespace WebApp.Models.Exceptions
         LoginAlreayExists = 1,
         EmailAlreayExists = 2,
         InvalidToken = 3,
-        TokenExpired = 4
+        TokenExpired = 4,
+        BadRequest = 5,
     }
 }

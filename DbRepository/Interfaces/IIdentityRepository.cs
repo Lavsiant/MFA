@@ -13,6 +13,8 @@ namespace DbRepository.Interfaces
 
         Task<User> GetUser(string login);
 
+        Task<User> GetUser(int id);
+
         Task<User> GetFullUser(string login);
 
         Task<User> GetFullUser(int login);

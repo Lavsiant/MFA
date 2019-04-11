@@ -25,6 +25,8 @@ namespace WebApp.Services.Implementations
                     return "Token expired";
                 case ExceptionType.InvalidToken:
                     return "Invalid token";
+                case ExceptionType.BadRequest:
+                    return "Bad request data";
                 default:
                     return "Internal error";
             }
@@ -42,6 +44,7 @@ namespace WebApp.Services.Implementations
                 case ExceptionType.LoginAlreayExists:
                 case ExceptionType.EmailAlreayExists:
                 case ExceptionType.InvalidLoginOrPassword:
+                case ExceptionType.BadRequest:
                     statusCode = HttpStatusCode.BadRequest;
                     break;
                 default:

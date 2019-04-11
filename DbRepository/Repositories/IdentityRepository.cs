@@ -29,6 +29,14 @@ namespace DbRepository.Repositories
             }
         }
 
+        public async Task<User> GetUser(int id)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.FirstOrDefaultAsync(x => x.ID == id);
+            }
+        }
+
         public async Task<User> GetUserByLoginPassword(string login, string password)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
