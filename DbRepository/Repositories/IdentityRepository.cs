@@ -53,5 +53,21 @@ namespace DbRepository.Repositories
                 return await context.Users.FirstOrDefaultAsync(x => x.Login.Equals(login) || x.Email.Equals(email));
             }
         }
+
+        public async Task<User> GetFullUser(string login)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.Include(x=>x.Playlists).Include(x=>x.Preferences).FirstOrDefaultAsync(x => x.Login == login);
+            }
+        }
+
+        public async Task<User> GetFullUser(int id)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Users.Include(x => x.Playlists).Include(x => x.Preferences).FirstOrDefaultAsync(x => x.ID == id);
+            }
+        }
     }
 }

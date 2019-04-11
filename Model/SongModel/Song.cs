@@ -8,7 +8,7 @@ namespace Model
     {
         public Song()
         {
-            UserSongs = new List<UserSong>();
+            PlaylistSongs = new List<PlaylistSong>();
         }
 
         public int ID { get; set; }
@@ -21,6 +21,6 @@ namespace Model
 
         public State State { get; set; }
 
-        public List<UserSong> UserSongs { get; set; }
+        public List<PlaylistSong> PlaylistSongs { get; set; }
     }
 }

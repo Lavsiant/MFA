@@ -9,7 +9,7 @@ namespace Model
     {
         public User()
         {
-            UserSongs = new List<UserSong>();
+            Playlists = new List<Playlist>();
         }
 
         public int ID { get; set; }
@@ -28,6 +28,6 @@ namespace Model
 
         public GenrePreference Preferences { get; set; }
 
-        public List<UserSong> UserSongs { get; set; }
+        public List<Playlist> Playlists { get; set; }
     }
 }
