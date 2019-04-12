@@ -4,10 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using WebApp.Models;
-using WebApp.Models.Exceptions;
-using WebApp.Services.Interfaces;
+using Services.Models.Common;
+using Services.Interfaces;
 
-namespace WebApp.Services.Implementations
+namespace Services.Implementations
 {
     public class ExceptionService : IExceptionService
     {
@@ -32,7 +32,7 @@ namespace WebApp.Services.Implementations
             }
         }
 
-        public Response GetResponseByExceptionType(ExceptionType exType)
+        public ErrorResponseModel GetResponseByExceptionType(ExceptionType exType)
         {
             HttpStatusCode statusCode;
             switch (exType)
@@ -52,11 +52,10 @@ namespace WebApp.Services.Implementations
                     break;                
             }
 
-            return new Response()
+            return new ErrorResponseModel()
             {
                 StatusCode = statusCode,
-                ErrorMessage = GetExceptionMessageText(exType),
-                Success = false
+                ErrorMessage = GetExceptionMessageText(exType)
             };
 
         }

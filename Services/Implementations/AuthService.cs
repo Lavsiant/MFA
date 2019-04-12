@@ -8,13 +8,13 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
-using WebApp.Models.Enums;
-using WebApp.Models.Exceptions;
-using WebApp.Services.Interfaces;
-using WebApp.ViewModels;
+using Services.Models.Common;
+using Services.Interfaces;
+using Services.Models.Auth;
+using WebApp.Models.Auth;
 
-namespace WebApp.Services.Implementations
-{
+namespace Services.Implementations
+{ 
     public class AuthService : IAuthService
     {
         private readonly IAuthRepository _authRepository;
@@ -26,9 +26,9 @@ namespace WebApp.Services.Implementations
             _authRepository = authRepository;
         }
 
-        public async Task<User> Login(LoginViewModel vm)
+        public async Task<User> Login(LoginModel model)
         {
-            var user = await _identityRepository.GetUserByLoginPassword(vm.Login, GetHash(vm.Password));
+            var user = await _identityRepository.GetUserByLoginPassword(model.Login, GetHash(model.Password));
             if (user != null)
             {                
                 var token = GenerateToken(user.Login, DateTime.Now);         
@@ -43,17 +43,17 @@ namespace WebApp.Services.Implementations
            
         }
 
-        public async Task<User> Register(RegisterViewModel registerVM)
+        public async Task<User> Register(RegisterModel model)
         {
-            var userWithCredentials = await _identityRepository.GetUserByLoginOrEmail(registerVM.Login, registerVM.Email);
+            var userWithCredentials = await _identityRepository.GetUserByLoginOrEmail(model.Login, model.Email);
 
             if (userWithCredentials != null)
             {
-                if (userWithCredentials.Login.Equals(registerVM.Login))
+                if (userWithCredentials.Login.Equals(model.Login))
                 {
                     throw new TypedException(ExceptionType.LoginAlreayExists);
                 }
-                else if (userWithCredentials.Email.Equals(registerVM.Email))
+                else if (userWithCredentials.Email.Equals(model.Email))
                 {
                     throw new TypedException(ExceptionType.EmailAlreayExists);
                 }
@@ -61,9 +61,9 @@ namespace WebApp.Services.Implementations
 
             var user = new User()
             {
-                Login = registerVM.Login,
-                Email = registerVM.Email,
-                Password = GetHash(registerVM.Password)
+                Login = model.Login,
+                Email = model.Email,
+                Password = GetHash(model.Password)
             };
             
             var token = GenerateToken(user.Login, DateTime.Now);

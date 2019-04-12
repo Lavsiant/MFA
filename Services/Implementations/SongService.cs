@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using DbRepository.Interfaces;
 using Model;
-using WebApp.Services.Interfaces;
+using Services.Interfaces;
 
-namespace WebApp.Services.Implementations
+namespace Services.Implementations
 {
     public class SongService : ISongService
     {

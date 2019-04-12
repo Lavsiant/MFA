@@ -18,10 +18,12 @@
   <ItemGroup>
     <ProjectReference Include="..\DbRepository\DbRepository.csproj" />
     <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 
 
   <ItemGroup>
+    <Folder Include="Models\Enums\" />
     <Folder Include="wwwroot\assets\" />
     <Folder Include="wwwroot\assets\" />
     <Folder Include="wwwroot\assets\" />

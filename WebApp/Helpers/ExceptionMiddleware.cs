@@ -1,14 +1,13 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Services.Implementations;
+using Services.Interfaces;
+using Services.Models.Common;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using WebApp.Models;
-using WebApp.Models.Exceptions;
-using WebApp.Services.Implementations;
-using WebApp.Services.Interfaces;
 
 namespace WebApp.Helpers
 {
@@ -45,7 +44,9 @@ namespace WebApp.Helpers
             var statusCode = (int)HttpStatusCode.OK;      
             response.ContentType = "application/json";
             response.StatusCode = statusCode;
-            var responseObj = _exceptionService.GetResponseByExceptionType(exception.Type);
+            var responseObj = Mapper.Map<Response>(_exceptionService.GetResponseByExceptionType(exception.Type));
+            responseObj.Success = false;
+
             await response.WriteAsync(JsonConvert.SerializeObject(responseObj));
         }
 

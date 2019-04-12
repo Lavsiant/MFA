@@ -1,17 +1,17 @@
 ﻿using Model;
+using Services.Models.Song;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApp.ViewModels.Playlist;
 
-namespace WebApp.Services.Interfaces
+namespace Services.Interfaces
 {
     public interface IPlaylistService
     {
         Task CreatePlaylist(Playlist playlist, int userId);
 
-        Task UpdatePlaylist(PlaylistViewModel playlist);
+        Task UpdatePlaylist(PlaylistModel playlist);
 
         Task<Playlist> GetPlaylist(int id);
 

@@ -1,29 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using DbRepository;
-using DbRepository.Factories;
-using DbRepository.Interfaces;
-using DbRepository.Repositories;
+﻿using DbRepository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Model;
 using WebApp.Helpers;
-using WebApp.Models;
-using WebApp.Services.Implementations;
-using WebApp.Services.Interfaces;
-using WebApp.ViewModels;
 
 namespace WebApp
 {
@@ -41,13 +23,9 @@ namespace WebApp
 
             services.AddDbContext<RepositoryContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-
-            services.AddScoped<IRepositoryContextFactory, RepositoryContextFactory>();
-            services.AddScoped<IIdentityRepository>(provider => new IdentityRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
-            services.AddScoped<IAuthRepository>(provider => new AuthRepository(Configuration.GetConnectionString("DefaultConnection"), provider.GetService<IRepositoryContextFactory>()));
-            services.AddTransient<IAuthService, AuthService>();
-            services.AddTransient<IIdentityService, IdentityService>();
-            services.AddScoped<IExceptionService, ExceptionService>();
+            ServerConfigurator.ConfigureRepositoryDI(services, Configuration);
+            ServerConfigurator.ConfigureServiceDI(services);
+         
             services.AddAuthentication(BasicAuthenticationDefaults.AuthenticationScheme)
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("Basic", null);
         }
@@ -69,10 +47,7 @@ namespace WebApp
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseMvc();
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<User, UserViewModel>();
-            });
+            ServerConfigurator.InitializeMapper();
 
             app.UseMvc(routes =>
             {

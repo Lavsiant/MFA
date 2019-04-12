@@ -4,11 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using DbRepository.Interfaces;
 using Model;
-using WebApp.Models.Exceptions;
-using WebApp.Services.Interfaces;
-using WebApp.ViewModels.Playlist;
+using Services.Models.Common;
+using Services.Interfaces;
+using Services.Models.Song;
 
-namespace WebApp.Services.Implementations
+namespace Services.Implementations
 {
     public class PlaylistService : IPlaylistService
     {
@@ -37,15 +37,15 @@ namespace WebApp.Services.Implementations
             return await _playlistRepository.GetPlaylist(name);
         }
 
-        public async Task UpdatePlaylist(PlaylistViewModel vm)
+        public async Task UpdatePlaylist(PlaylistModel model)
         {
             var playlist = new Playlist()
             {
-                Name = vm.Name,
-                ID = vm.ID
+                Name = model.Name,
+                ID = model.ID
             };
 
-            foreach (var song in vm.Songs)
+            foreach (var song in model.Songs)
             {
                 playlist.PlaylistSongs.Add(new PlaylistSong()
                 {

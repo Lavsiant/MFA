@@ -6,11 +6,11 @@ namespace Model
 {
     public enum Weather
     {
-        Rained,
+        Rain,
         Sunny,
         Snow,
         Cloudy,
         ThunderStorm,
-        Hot
+        Drizzle
     }
 }

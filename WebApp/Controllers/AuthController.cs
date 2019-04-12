@@ -2,16 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Services.Interfaces;
+using Services.Models.Auth;
 using System.Threading.Tasks;
 using WebApp.Helpers;
 using WebApp.Models;
-using WebApp.Models.Enums;
-using WebApp.Models.Exceptions;
-using WebApp.Services.Implementations;
-using WebApp.Services.Interfaces;
 using WebApp.ViewModels;
 
 namespace WebApp.Controllers
@@ -34,7 +29,7 @@ namespace WebApp.Controllers
         {            
             return await RequestHandler.ExecuteRequestAsync<UserViewModel>(async () =>
             {
-                var user = await _authService.Login(loginVM);
+                var user = await _authService.Login(Mapper.Map<LoginModel>(loginVM));
                 UpdateCookieToken(user.Token, user.Login);
                 return Mapper.Map<UserViewModel>(user);
             });           
@@ -46,7 +41,7 @@ namespace WebApp.Controllers
         {
             return await RequestHandler.ExecuteRequestAsync(async () =>
             {
-                var user = await _authService.Register(registerVM);
+                var user = await _authService.Register(Mapper.Map<RegisterModel>(registerVM));
                 UpdateCookieToken(user.Token, registerVM.Login);
                 return Mapper.Map<UserViewModel>(user);
             });

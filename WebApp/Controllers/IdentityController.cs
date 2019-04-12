@@ -1,13 +1,10 @@
-﻿using WebApp.Services.Interfaces;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Model;
 using Microsoft.AspNetCore.Authorization;
-using WebApp.Models;
+using Services.Interfaces;
 
 namespace WebApp.Controllers
 {

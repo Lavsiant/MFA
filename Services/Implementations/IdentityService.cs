@@ -1,5 +1,5 @@
 ﻿using DbRepository.Interfaces;
-using WebApp.Services.Interfaces;
+using Services.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Model;
 
-namespace WebApp.Services.Implementations
+namespace Services.Implementations
 {
     public class IdentityService : IIdentityService
     {

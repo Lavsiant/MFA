@@ -1,18 +1,18 @@
 ﻿using Model;
+using Services.Models.Auth;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WebApp.Models.Enums;
-using WebApp.ViewModels;
+using WebApp.Models.Auth;
 
-namespace WebApp.Services.Interfaces
+namespace Services.Interfaces
 {
     public interface IAuthService
     {
-        Task<User> Login(LoginViewModel loginVM);
+        Task<User> Login(LoginModel model);
 
-        Task<User> Register(RegisterViewModel registerVM);
+        Task<User> Register(RegisterModel model);
 
         Task<CheckTokenResult> CheckIfTokenValid(string tokenValue,string username);
 
