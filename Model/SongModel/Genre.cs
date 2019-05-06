@@ -7,6 +7,7 @@ namespace Model
 {
     public enum Genre
     {
+        Undefined,
         Rock,
         Metal,
         Instrumental,

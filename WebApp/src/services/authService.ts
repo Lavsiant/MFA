@@ -8,7 +8,9 @@ import { LoginModel } from '../interfaces/auth/loginModel';
 
 export const authService = {
     login,
-    register
+    register,
+    logout,
+    getCurrentUser
 };
 
 async function login(model: LoginModel) : Promise<Response<IUser>> {
@@ -25,7 +27,7 @@ async function login(model: LoginModel) : Promise<Response<IUser>> {
     return res.json();   
 }
 
-async function register(user: RegisterUserModel) : Promise<IUser>{
+async function register(user: RegisterUserModel) : Promise<Response<IUser>>{
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
@@ -37,5 +39,21 @@ async function register(user: RegisterUserModel) : Promise<IUser>{
         throw new Error('Register error');
     }
     return res.json();      
+}
+
+async function logout() : Promise<void>{
+    const res = await fetch('/api/auth/logout');
+    if(!res.ok){
+        throw new Error('Internal error');
+    }     
+    return res.json();  
+}
+
+async function getCurrentUser() : Promise<Response<IUser>>{
+    const res = await fetch('/api/auth/current');
+    if(!res.ok){
+        throw new Error('Internal error');
+    }     
+    return res.json();  
 }
 

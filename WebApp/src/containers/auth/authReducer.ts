@@ -1,7 +1,7 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import UserState from "../../interfaces/user/userState";
 import IUser from "../../interfaces/user/user";
-import { register, login } from "./authActions";
+import { register, login, logout, getCurrentUser } from "./authActions";
 import AuthState from "../../interfaces/auth/authState";
 
 
@@ -34,6 +34,14 @@ export const authReducer = reducerWithInitialState(INITIAL_STATE)
     .case(login.async.failed, (state, e) => ({
         ...state,
         error: e.error.message
+    }))
+    .case(logout.async.done, (state) => ({
+        ...state,
+        user: null
+    }))
+    .case(getCurrentUser.async.done, (state,payload) => ({
+        ...state,
+        user: payload.result
     }))
 
 

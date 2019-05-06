@@ -23,5 +23,9 @@ namespace Services.Interfaces
         Task<List<Song>> GetSongsByLocation(Location mood);
 
         Task<List<Song>> GetSongsByWeather(Weather mood);
+
+        Task<List<Song>> GetFilteredSongs(State state, Genre genre);
+
+        Task<List<Song>> GetAllSongs();
     }
 }

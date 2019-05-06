@@ -15,5 +15,9 @@ namespace DbRepository.Interfaces
         Task<Playlist> GetPlaylist(int id);
 
         Task<Playlist> GetPlaylist(string id);
+
+        Task<List<Playlist>> GetPlaylistsByUser(int id);
+
+        Task AddSongToPlaylist(PlaylistSong playlistSong);
     }
 }

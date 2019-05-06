@@ -7,7 +7,9 @@ import { AppDispatch } from '../../helpers/appDispatch';
 import { RegisterUserModel } from '../../interfaces/auth/registerModel';
 import { LoginModel } from '../../interfaces/auth/loginModel';
 import AuthState from '../../interfaces/auth/authState';
-import handleRequest from '../../helpers/requestHandler'
+import handleRequest from '../../helpers/requestHandler';
+import { push } from 'connected-react-router';
+import Response from '../../interfaces/response'
 
 
 var factory = actionCreatorFactory();
@@ -16,7 +18,7 @@ var createAsync = asyncFactory<AuthState>(factory);
 export const register = createAsync<RegisterUserModel, IUser>(
   'register',
   async (p: RegisterUserModel, d: any) => {
-    return await authService.register(p);
+    return await handleRequest<IUser, RegisterUserModel>(authService.register,p,d);
   });
 
 export const login = createAsync<LoginModel, IUser>(
@@ -25,9 +27,19 @@ export const login = createAsync<LoginModel, IUser>(
     return await handleRequest<IUser, LoginModel>(authService.login, p, d);
   });
 
-export const logout = createAsync<void,never>(
+export const logout = createAsync<void,void>(
   'logout',
   async (p: void, d: any) => {
-     await handleRequest<void,void>(authService.)
+     await authService.logout();
+     d(push('/login'));
+  }
+)
+
+export const getCurrentUser = createAsync<void,IUser>(
+  'current',
+  async (p: void, d: any) => {
+    var result : Response<IUser> = await authService.getCurrentUser();
+    return result.data;
+
   }
 )

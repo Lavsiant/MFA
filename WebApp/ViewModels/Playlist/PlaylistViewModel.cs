@@ -13,5 +13,7 @@ namespace WebApp.ViewModels.Playlist
         public string Name { get; set; }
 
         public List<Model.Song> Songs { get; set; }
+
+        public int OwnerId { get; set; }
     }
 }

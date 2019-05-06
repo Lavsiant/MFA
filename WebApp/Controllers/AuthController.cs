@@ -15,24 +15,26 @@ namespace WebApp.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService _authService;
+        private readonly IIdentityService _identityService;
         private readonly IExceptionService _exceptionService;
 
-        public AuthController(IAuthService authService, IExceptionService exceptionService)
+        public AuthController(IAuthService authService, IExceptionService exceptionService, IIdentityService identityService)
         {
             _authService = authService;
             _exceptionService = exceptionService;
+            _identityService = identityService;
         }
 
         [Route("login")]
         [HttpPost]
         public async Task<Response<UserViewModel>> Login([FromBody] LoginViewModel loginVM)
-        {            
+        {
             return await RequestHandler.ExecuteRequestAsync<UserViewModel>(async () =>
             {
                 var user = await _authService.Login(Mapper.Map<LoginModel>(loginVM));
                 UpdateCookieToken(user.Token, user.Login);
                 return Mapper.Map<UserViewModel>(user);
-            });           
+            });
         }
 
         [Route("register")]
@@ -57,6 +59,18 @@ namespace WebApp.Controllers
             });
         }
 
+        [Route("current")]
+        [HttpGet]
+        public async Task<Response<User>> GetCurrentUser()
+        {
+            var request = HttpContext.Request;
+            var username = request.Cookies["user"];
+            return await RequestHandler.ExecuteRequestAsync(async () =>
+            {
+                return !string.IsNullOrEmpty(username) ? await _identityService.GetUser(username) : null;
+            });
+        }
+
         private void UpdateCookieToken(Token token, string username = null)
         {
             var response = HttpContext.Response;
@@ -70,7 +84,7 @@ namespace WebApp.Controllers
         {
             var response = HttpContext.Response;
             response.Cookies.Delete("token");
-            response.Cookies.Delete("user");        
+            response.Cookies.Delete("user");
         }
     }
 }

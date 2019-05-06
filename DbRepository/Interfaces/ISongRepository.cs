@@ -23,5 +23,7 @@ namespace DbRepository.Interfaces
         Task<List<Song>> GetSongsByLocation(Location mood);
 
         Task<List<Song>> GetSongsByWeather(Weather mood);
+
+        Task<List<Song>> GetAllSongs();
     }
 }

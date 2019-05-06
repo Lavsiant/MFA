@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Model;
 using Microsoft.AspNetCore.Authorization;
 using Services.Interfaces;
+using WebApp.Helpers;
+using WebApp.Models;
 
 namespace WebApp.Controllers
 {
@@ -21,18 +23,25 @@ namespace WebApp.Controllers
         [Route("all")]
         [HttpGet]
         [Authorize(AuthenticationSchemes = "Basic", Roles = "Admin")]
-        public async Task<ICollection<User>> GetAllUsers()
+        public async Task<Response<List<User>>> GetAllUsers()
         {
-            var users = new List<User>();
-            try
+            return await RequestHandler.ExecuteRequestAsync(async () =>
             {
-                users = await _identityService.GetAllUsers();
-            }
-            catch (Exception ex)
-            {
+                return await _identityService.GetAllUsers();
+            });
+           
+        }
 
-            }
-            return users;
+        [Route("id")]
+        [HttpGet]
+        [Authorize(AuthenticationSchemes = "Basic", Roles = "Admin")]
+        public async Task<Response<User>> GetUser(string id)
+        {
+            return await RequestHandler.ExecuteRequestAsync(async () =>
+            {
+                return await _identityService.GetUser(id);
+            });
+
         }
     }
 }

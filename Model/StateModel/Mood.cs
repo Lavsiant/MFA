@@ -6,6 +6,7 @@ namespace Model
 {
     public enum Mood
     {
+        Undefined = 0,
         Sad,
         Glad,
         Inspired,

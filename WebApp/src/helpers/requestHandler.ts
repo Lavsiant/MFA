@@ -1,7 +1,11 @@
 import Response from '../interfaces/response'
 import { push } from 'connected-react-router'
 
-export default async function handleRequest<TResult,TParams>(fetch: (params: TParams)=> Promise<Response<TResult>>,dispatch: any, requestParams: TParams) : Promise<TResult>{
+export default async function handleRequest<TResult,TParams>(
+    fetch: (params: TParams ) => 
+    Promise<Response<TResult>>, dispatch: any, requestParams: TParams)
+     : Promise<TResult>{
+
     const response : Response<TResult> = await fetch(requestParams);
     if(!response.success){
         switch (response.statusCode){
@@ -14,7 +18,6 @@ export default async function handleRequest<TResult,TParams>(fetch: (params: TPa
     else{
         return response.data;
     }
-
 }
 
 

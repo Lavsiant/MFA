@@ -6,6 +6,7 @@ namespace Model
 {
     public enum Location
     {
+        Undefined=0,
         Transport,
         Home,
         Work,

@@ -19,12 +19,12 @@ namespace Services.Implementations
 
         public async Task CreateSong(Song song)
         {
-            throw new NotImplementedException();
+            await _songRepository.CreateSong(song);
         }
 
         public async Task<Song> GetSongByFullName(string band, string name)
         {
-            throw new NotImplementedException();
+            return await _songRepository.GetSongByFullName(band, name);
         }
 
         public async Task<Song> GetSongById(int id)
@@ -34,17 +34,17 @@ namespace Services.Implementations
 
         public async Task<List<Song>> GetSongsByGenre(Genre genre)
         {
-            throw new NotImplementedException();
+            return await _songRepository.GetSongsByGenre(genre);
         }
 
-        public async Task<List<Song>> GetSongsByLocation(Location mood)
+        public async Task<List<Song>> GetSongsByLocation(Location location)
         {
-            throw new NotImplementedException();
+            return await _songRepository.GetSongsByLocation(location);
         }
 
         public async Task<List<Song>> GetSongsByMood(Mood mood)
         {
-            throw new NotImplementedException();
+            return await _songRepository.GetSongsByMood(mood);
         }
 
         public async Task<List<Song>> GetSongsByState(State state)
@@ -52,9 +52,41 @@ namespace Services.Implementations
             throw new NotImplementedException();
         }
 
+        public async Task<List<Song>> GetFilteredSongs(State state, Genre genre)
+        {
+            var songs = await _songRepository.GetAllSongs();
+            if (genre != Genre.Undefined)
+            {
+                songs = songs.Where(x => x.Genre == genre).ToList();
+            }
+
+            if (state != null)
+            {
+                if (state.Location != Location.Undefined)
+                {
+                    songs = songs.Where(x => x.State.Location == state.Location).ToList();
+                }
+                if (state.Mood != Mood.Undefined)
+                {
+                    songs = songs.Where(x => x.State.Mood == state.Mood).ToList();
+                }
+                if (state.Weather != Weather.Undefined)
+                {
+                    songs = songs.Where(x => x.State.Weather == state.Weather).ToList();
+                }
+            }
+
+            return songs;
+        }
+
         public async Task<List<Song>> GetSongsByWeather(Weather mood)
         {
-            throw new NotImplementedException();
+            return await _songRepository.GetSongsByWeather(mood);
+        }
+
+        public async Task<List<Song>> GetAllSongs()
+        {
+            return await _songRepository.GetAllSongs();
         }
     }
 }

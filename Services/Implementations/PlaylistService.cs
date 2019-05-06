@@ -14,11 +14,13 @@ namespace Services.Implementations
     {
         private readonly IPlaylistRepository _playlistRepository;
         private readonly IIdentityRepository _identityRepository;
+        private readonly ISongRepository _songRepository;
 
-        public PlaylistService(IPlaylistRepository playlistRepository, IIdentityRepository identityRepository)
+        public PlaylistService(IPlaylistRepository playlistRepository, IIdentityRepository identityRepository, ISongRepository songRepository) 
         {
             _identityRepository = identityRepository;
             _playlistRepository = playlistRepository;
+            _songRepository = songRepository;
         }
 
         public async Task CreatePlaylist(Playlist playlist, int userId)
@@ -35,6 +37,32 @@ namespace Services.Implementations
         public async Task<Playlist> GetPlaylist(string name)
         {
             return await _playlistRepository.GetPlaylist(name);
+        }
+
+        public async Task<List<Playlist>> GetPlaylistsByUser(int userId)
+        {
+            return await _playlistRepository.GetPlaylistsByUser(userId);
+        }
+
+        public async Task AddSongToPlaylist(int songId, int playlistId)
+        {
+            var song = await _songRepository.GetSongById(songId);
+            var playlist = await _playlistRepository.GetPlaylist(playlistId);
+            if(!playlist.PlaylistSongs.Any(x=>x.SongId == songId))
+            {
+                var ps = new PlaylistSong()
+                {
+                    SongId = songId,
+                    PlaylistId = playlistId
+                };
+                //playlist.PlaylistSongs.Add();
+            }
+
+        }
+
+        public async Task<Playlist> GetPlaylistByState(State state)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task UpdatePlaylist(PlaylistModel model)

@@ -6,6 +6,8 @@ namespace Model
 {
     public class State
     {
+        public int ID { get; set; }
+
         public Location Location { get; set; }
 
         public Weather Weather { get; set; }

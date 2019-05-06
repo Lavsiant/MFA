@@ -6,6 +6,7 @@ namespace Model
 {
     public enum Weather
     {
+        Undefined=0,
         Rain,
         Sunny,
         Snow,

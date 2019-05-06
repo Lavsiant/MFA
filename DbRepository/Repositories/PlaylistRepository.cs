@@ -38,6 +38,15 @@ namespace DbRepository.Repositories
             }
         }
 
+        public async Task<List<Playlist>> GetPlaylistsByUser(int id)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var user = await context.Users.Include(x=>x.Playlists).FirstOrDefaultAsync(x => x.ID == id);
+                return user.Playlists;
+            }
+        }
+
         public async Task UpdatePlaylist(Playlist updatedPlaylist)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
@@ -45,6 +54,15 @@ namespace DbRepository.Repositories
                 var playlist = await context.Playlists.Include(x => x.PlaylistSongs).FirstOrDefaultAsync(x => x.ID == updatedPlaylist.ID);
                 playlist.Name = updatedPlaylist.Name;
                 playlist.PlaylistSongs = updatedPlaylist.PlaylistSongs;
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddSongToPlaylist(PlaylistSong playlistSong)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                context.PlaylistSongs.Add(playlistSong);
                 await context.SaveChangesAsync();
             }
         }

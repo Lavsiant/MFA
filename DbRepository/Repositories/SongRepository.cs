@@ -83,6 +83,14 @@ namespace DbRepository.Repositories
             }
         }
 
+        public async Task<List<Song>> GetAllSongs()
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                return await context.Songs.ToListAsync();
+            }
+        }
+
 
     }
 }
