@@ -1,6 +1,6 @@
 export default interface Response<T>{
-    statusCode: number;
-    errorMessage: string;
-    success: boolean;
-    data: T
+    StatusCode: number;
+    ErrorMessage: string;
+    Success: boolean;
+    Data: T
 }

@@ -24,7 +24,7 @@ export const register = createAsync<RegisterUserModel, IUser>(
 export const login = createAsync<LoginModel, IUser>(
   'login',
   async (p: LoginModel, d: any, ) => {
-    return await handleRequest<IUser, LoginModel>(authService.login, p, d);
+    return await handleRequest<IUser, LoginModel>(authService.login, d, p);
   });
 
 export const logout = createAsync<void,void>(
@@ -39,7 +39,7 @@ export const getCurrentUser = createAsync<void,IUser>(
   'current',
   async (p: void, d: any) => {
     var result : Response<IUser> = await authService.getCurrentUser();
-    return result.data;
+    return result.Data;
 
   }
 )

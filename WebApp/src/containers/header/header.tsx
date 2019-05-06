@@ -9,12 +9,14 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import AppBar from '@material-ui/core/AppBar';
 import Paper from '@material-ui/core/Paper';
+import { push } from 'connected-react-router'
 
 interface HeaderProps {
     user: IUser
     error: string
-    getCurrentUser(): IUser
-    logout() : void
+    getCurrentUser(): any
+    logout() : any
+    push(path: string) : any
 }
 
 interface State {
@@ -46,24 +48,13 @@ class Header extends React.Component<HeaderProps,State> {
     render() {
         return (
             <header>
-                {/* <menu>
-                    <ul>
-                        <li>
-                            {this.props.user ?
-                                <Link to="/">{this.props.user.login}</Link>
-                                : <div>PLEASE LOGIN</div>
-                            }
-
-                            <div>{this.props.error}</div>
-
-                        </li>
-
-                    </ul>
-                </menu> */}
+        
                 <AppBar position="static">
-                    <Tabs indicatorColor="primary" textColor="primary" value={this.state.value} onChange={this.handleChange} centered>
-
-                        <Tab label="Logout" onClick={this.handleLogOut}  />
+                    <Tabs style={{  flexGrow: 1}} value={this.state.value} onChange={this.handleChange} centered>
+                        {this.props.user ?                        
+                        <Tab label="Logout" onClick={this.handleLogOut} /> :
+                        <Tab label="Login"  />
+                        }
                     </Tabs>
                 </AppBar>
             </header>
@@ -81,7 +72,8 @@ const mapProps = (state: any) => {
 const mapDispatch = (dispatch: AppDispatch) => bindActionCreators(
     {
         getCurrentUser: getCurrentUser.action,
-        logout: logout.action
+        logout: logout.action,
+        push: push
 
     },
     dispatch);
