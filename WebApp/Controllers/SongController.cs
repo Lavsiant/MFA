@@ -24,16 +24,24 @@ namespace WebApp.Controllers
         }
 
         [Route("create")]
-        public async Task<Response> CreateSong(SongViewModel model)
+        [HttpPost]
+        public async Task<Response> CreateSong([FromBody] SongViewModel model)
         {
             return await RequestHandler.ExecuteRequestAsync(async () =>
             {
-                var songModel = Mapper.Map<Song>(model);
+                var songModel = new Song()
+                {
+                    State = model.State,
+                    Name = model.Name,
+                    Genre = model.Genre,
+                    Band = model.Band
+                };
                 await _songService.CreateSong(songModel);
             });
         }
 
         [Route("filter")]
+        [HttpGet]
         public async Task<Response<List<Song>>> GetSongsByFilter(Genre genre, Location location, Weather weather, Mood mood)
         {
             return await RequestHandler.ExecuteRequestAsync(async () =>
@@ -49,6 +57,7 @@ namespace WebApp.Controllers
         }
 
         [Route("id")]
+        [HttpGet]
         public async Task<Response<Song>> GetSongById(int id)
         {
             return await RequestHandler.ExecuteRequestAsync(async () =>
@@ -56,6 +65,7 @@ namespace WebApp.Controllers
                 return await _songService.GetSongById(id);
             });
         }
+
 
     }
 }

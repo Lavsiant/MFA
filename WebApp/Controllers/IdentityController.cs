@@ -22,7 +22,7 @@ namespace WebApp.Controllers
 
         [Route("all")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = "Basic", Roles = "Admin")]
+        //[Authorize(AuthenticationSchemes = "Basic", Roles = "Admin")]
         public async Task<Response<List<User>>> GetAllUsers()
         {
             return await RequestHandler.ExecuteRequestAsync(async () =>
@@ -34,7 +34,7 @@ namespace WebApp.Controllers
 
         [Route("id")]
         [HttpGet]
-        [Authorize(AuthenticationSchemes = "Basic", Roles = "Admin")]
+        //[Authorize(AuthenticationSchemes = "Basic", Roles = "Admin")]
         public async Task<Response<User>> GetUser(string id)
         {
             return await RequestHandler.ExecuteRequestAsync(async () =>

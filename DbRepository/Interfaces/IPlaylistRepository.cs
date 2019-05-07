@@ -8,7 +8,7 @@ namespace DbRepository.Interfaces
 {
     public interface IPlaylistRepository
     {
-        Task CreatePlaylist(Playlist playlist);
+        Task CreatePlaylist(Playlist playlist, int user);
 
         Task UpdatePlaylist(Playlist playlist);
 

@@ -18,7 +18,7 @@ var createAsync = asyncFactory<AuthState>(factory);
 export const register = createAsync<RegisterUserModel, IUser>(
   'register',
   async (p: RegisterUserModel, d: any) => {
-    return await handleRequest<IUser, RegisterUserModel>(authService.register,p,d);
+    return await handleRequest<IUser, RegisterUserModel>(authService.register,d,p);
   });
 
 export const login = createAsync<LoginModel, IUser>(

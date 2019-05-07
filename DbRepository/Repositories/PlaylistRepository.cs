@@ -13,11 +13,15 @@ namespace DbRepository.Repositories
     {
         public PlaylistRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-        public async Task CreatePlaylist(Playlist playlist)
+        public async Task CreatePlaylist(Playlist playlist, int userId)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                context.Playlists.Add(playlist);
+                var user = context.Users.Include(x => x.Playlists).FirstOrDefault(x => x.ID == userId);
+                if (user != null)
+                {
+                    user.Playlists.Add(playlist);
+                }
                 await context.SaveChangesAsync();
             }
         }
@@ -42,8 +46,13 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var user = await context.Users.Include(x=>x.Playlists).FirstOrDefaultAsync(x => x.ID == id);
-                return user.Playlists;
+                var user = await context.Users
+                    .Include(x => x.Playlists)
+                    .ThenInclude(x => x.PlaylistSongs)
+                    .ThenInclude(x => x.Song)
+                    .ThenInclude(x => x.State)
+                    .FirstOrDefaultAsync(x => x.ID == id);
+                return user != null ? user.Playlists : new List<Playlist>();
             }
         }
 

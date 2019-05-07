@@ -27,6 +27,7 @@ namespace Services.Implementations
         {
             var user = await _identityRepository.GetUser(userId);
             playlist.Owner = user ?? throw new TypedException(ExceptionType.BadRequest);
+            await _playlistRepository.CreatePlaylist(playlist,userId);
         }
 
         public async Task<Playlist> GetPlaylist(int id)
@@ -55,7 +56,7 @@ namespace Services.Implementations
                     SongId = songId,
                     PlaylistId = playlistId
                 };
-                //playlist.PlaylistSongs.Add();
+                await _playlistRepository.AddSongToPlaylist(ps);
             }
 
         }

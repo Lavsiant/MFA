@@ -28,6 +28,8 @@ namespace WebApp.Helpers
                 cfg.CreateMap<LoginModel, LoginViewModel>();
                 cfg.CreateMap<RegisterModel, RegisterViewModel>();
                 cfg.CreateMap<PlaylistModel, PlaylistViewModel>();
+                cfg.CreateMap<Playlist, PlaylistViewModel>();
+                cfg.CreateMap<PlaylistViewModel, Playlist>();
                 cfg.CreateMap<ErrorResponseModel, Response>();
                 cfg.CreateMap<SongModel, SongViewModel>();
             });
@@ -48,8 +50,8 @@ namespace WebApp.Helpers
             services.AddTransient<IAuthService, AuthService>();
             services.AddTransient<IIdentityService, IdentityService>();
             services.AddScoped<IExceptionService, ExceptionService>();
-            services.AddScoped<ISongRepository, SongRepository>();
-            services.AddScoped<IPlaylistRepository, PlaylistRepository>();
+            services.AddScoped<ISongService, SongService>();
+            services.AddScoped<IPlaylistService, PlaylistService>();
             services.AddScoped<IWeatherSevice, WeatherService>();
             services.AddScoped<IWeatherProvider, OpenWeatherMapProvider>();
         }
