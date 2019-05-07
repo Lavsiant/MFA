@@ -12,6 +12,11 @@ namespace Services.Models.Common
             Type = type;
         }
 
+        public TypedException(ExceptionType type, string message) : base(message)
+        {
+            Type = type;
+        }
+
         public ExceptionType Type { get; set; }
     }
 }

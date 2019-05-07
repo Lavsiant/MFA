@@ -26,7 +26,7 @@ namespace Model
 
         public State State { get; set; }
 
-        public GenrePreference Preferences { get; set; }
+        public List<GenrePreference> Preferences { get; set; }
 
         public List<Playlist> Playlists { get; set; }
     }

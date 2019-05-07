@@ -77,5 +77,36 @@ namespace DbRepository.Repositories
                 return await context.Users.Include(x => x.Playlists).Include(x => x.Preferences).FirstOrDefaultAsync(x => x.ID == id);
             }
         }
+
+        public async Task UpdateUser(User user)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var userToUpdate = await context.Users.FirstOrDefaultAsync(x => x.ID == user.ID);
+                userToUpdate.Login = user.Login;
+                userToUpdate.Email = user.Email;
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task DeleteUser(User user)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                context.Users.Remove(user);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task UpdateGenrePreferences(List<GenrePreference> genrePreferences, int userId)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var user = await context.Users.Include(x=>x.Preferences).FirstOrDefaultAsync(x => x.ID == userId);
+                user.Preferences = genrePreferences;
+                await context.SaveChangesAsync();
+            }
+        }
+
     }
 }

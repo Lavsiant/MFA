@@ -24,5 +24,11 @@ namespace DbRepository.Interfaces
         Task<User> GetUserByLoginOrEmail(string login, string email);
 
         Task CreateUser(User user);
+
+        Task UpdateUser(User user);
+
+        Task DeleteUser(User user);
+
+        Task UpdateGenrePreferences(List<GenrePreference> genrePreferences, int userId);
     }
 }

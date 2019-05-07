@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Services.Interfaces;
 using WebApp.Helpers;
 using WebApp.Models;
+using WebApp.ViewModels;
 
 namespace WebApp.Controllers
 {
@@ -41,6 +42,41 @@ namespace WebApp.Controllers
             {
                 return await _identityService.GetUser(id);
             });
+        }
+
+        [Route("update")]
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = "Basic")]
+        public async Task<Response> UpdateUser(UserViewModel userViewModel)
+        {
+            return await RequestHandler.ExecuteRequestAsync(async () =>
+            {
+                var user = new User()
+                {
+                    Email = userViewModel.Email,
+                    Login = userViewModel.Login,
+                    ID = userViewModel.ID
+                };
+                 await _identityService.UpdateUser(user);
+            });
+        }
+
+        [Route("delete")]
+        [HttpDelete]
+        //[Authorize(AuthenticationSchemes = "Basic", Roles = "Admin")]
+        public async Task<Response> DeleteUser(int id)
+        {
+            return await RequestHandler.ExecuteRequestAsync(async () =>
+            {
+                await _identityService.DeleteUser(id);
+            });
+        }
+
+        [Route("preferences-update")]
+        [HttpPost]
+        [Authorize(AuthenticationSchemes = "Basic")]
+        public async Task<Response> UpdateGenrePreferences([FromBody] List<GenrePreference> genrePreferences, [FromQuery] int userId)
+        {
 
         }
     }

@@ -25,6 +25,7 @@ namespace WebApp.Helpers
             Mapper.Initialize(cfg =>
             {
                 cfg.CreateMap<User, UserViewModel>();
+                cfg.CreateMap<UserViewModel, User>().ForMember(x => x.Email, opt => opt.Ignore());
                 cfg.CreateMap<LoginModel, LoginViewModel>();
                 cfg.CreateMap<RegisterModel, RegisterViewModel>();
                 cfg.CreateMap<PlaylistModel, PlaylistViewModel>();
