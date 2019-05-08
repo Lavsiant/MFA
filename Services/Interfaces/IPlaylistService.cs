@@ -19,8 +19,6 @@ namespace Services.Interfaces
 
         Task<List<Playlist>> GetPlaylistsByUser(int userId);
 
-        Task<Playlist> GetPlaylistByState(State state);
-
         Task AddSongToPlaylist(int songId, int playlistId);
     }
 }

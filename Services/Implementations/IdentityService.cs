@@ -67,5 +67,11 @@ namespace Services.Implementations
                 throw new TypedException(ExceptionType.BadRequest, "User does not exist");
             }
         }
+
+        public async Task<User> GetUser(int id)
+        {
+            var user = await _identityRepository.GetUser(id);
+            return user ?? throw new TypedException(ExceptionType.BadRequest);
+        }
     }
 }

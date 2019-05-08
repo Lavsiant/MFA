@@ -6,6 +6,6 @@ namespace Services.Interfaces
     {
         string GetExceptionMessageText(ExceptionType exType);
 
-        ErrorResponseModel GetResponseByExceptionType(ExceptionType exType);
+        ErrorResponseModel GetResponseByExceptionType(TypedException ex);
     }
 }

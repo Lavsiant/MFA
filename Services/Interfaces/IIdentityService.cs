@@ -13,6 +13,8 @@ namespace Services.Interfaces
 
         Task<User> GetUser(string username);
 
+        Task<User> GetUser(int id);
+
         Task UpdateUser(User user);
 
         Task DeleteUser(int id);

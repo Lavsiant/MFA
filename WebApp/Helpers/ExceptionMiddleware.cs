@@ -44,7 +44,7 @@ namespace WebApp.Helpers
             var statusCode = (int)HttpStatusCode.OK;      
             response.ContentType = "application/json";
             response.StatusCode = statusCode;
-            var responseObj = Mapper.Map<Response>(_exceptionService.GetResponseByExceptionType(exception.Type));
+            var responseObj = Mapper.Map<Response>(_exceptionService.GetResponseByExceptionType(exception));
             responseObj.Success = false;
 
             await response.WriteAsync(JsonConvert.SerializeObject(responseObj));

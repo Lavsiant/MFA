@@ -32,10 +32,10 @@ namespace Services.Implementations
             }
         }
 
-        public ErrorResponseModel GetResponseByExceptionType(ExceptionType exType)
+        public ErrorResponseModel GetResponseByExceptionType(TypedException ex)
         {
             HttpStatusCode statusCode;
-            switch (exType)
+            switch (ex.Type)
             {
                 case ExceptionType.InvalidToken:        
                 case ExceptionType.TokenExpired:
@@ -55,7 +55,7 @@ namespace Services.Implementations
             return new ErrorResponseModel()
             {
                 StatusCode = statusCode,
-                ErrorMessage = GetExceptionMessageText(exType)
+                ErrorMessage = ex.IsCustomMessage ? ex.Message : GetExceptionMessageText(ex.Type)
             };
 
         }

@@ -60,12 +60,7 @@ namespace Services.Implementations
             }
 
         }
-
-        public async Task<Playlist> GetPlaylistByState(State state)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public async Task UpdatePlaylist(PlaylistModel model)
         {
             var playlist = new Playlist()

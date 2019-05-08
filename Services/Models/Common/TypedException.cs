@@ -10,13 +10,17 @@ namespace Services.Models.Common
         public TypedException(ExceptionType type)
         {
             Type = type;
+            IsCustomMessage = false;
         }
 
         public TypedException(ExceptionType type, string message) : base(message)
         {
             Type = type;
+            IsCustomMessage = true;
         }
 
         public ExceptionType Type { get; set; }
+
+        public bool IsCustomMessage { get; set; }
     }
 }

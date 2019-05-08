@@ -16,7 +16,7 @@ namespace WebApp.Controllers
     [Route("api/[controller]")]
     public class PlaylistController : Controller
     {
-        private readonly IPlaylistService _playlistService;
+        private readonly IPlaylistService _playlistService;        
 
         public PlaylistController(IPlaylistService playlistService)
         {

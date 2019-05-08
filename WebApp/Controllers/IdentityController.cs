@@ -77,7 +77,10 @@ namespace WebApp.Controllers
         [Authorize(AuthenticationSchemes = "Basic")]
         public async Task<Response> UpdateGenrePreferences([FromBody] List<GenrePreference> genrePreferences, [FromQuery] int userId)
         {
-
+            return await RequestHandler.ExecuteRequestAsync(async () =>
+            {
+                await _identityService.UpdateGenrePreferences(genrePreferences, userId);
+            });
         }
     }
 }
