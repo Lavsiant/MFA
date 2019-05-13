@@ -18,6 +18,7 @@ async function getAllSongs() : Promise<Response<ISong[]>> {
 
 }
 
+async function createSong(song : ISong) :
 
 async function submitPreferences(gp: IGenrePreference[], userId: string ) : Promise<Response<any>> {
     const requestOptions = {

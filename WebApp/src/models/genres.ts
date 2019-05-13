@@ -27,3 +27,15 @@ export function getGenresPreferences() : IGenrePreference[]{
     }
     return map;
 }
+
+// export function getGenresList() : IGenrePreference[]{
+//     let map: {genre : Genres, name: string}[] = [];
+//     let index = 1;
+//     for(var n in Genres) {
+//         if (typeof Genres[n] === 'number') {
+//             map.push({genre: Genres., name: n, preference: Preference.Medium});
+//         }
+//         index++;
+//     }
+//     return map;
+// }

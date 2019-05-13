@@ -8,3 +8,4 @@ export enum Preference
     High = 4,
     VeryHigh = 5
 }
+
