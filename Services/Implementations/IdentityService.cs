@@ -55,12 +55,12 @@ namespace Services.Implementations
             }
         }
 
-        public async Task UpdateGenrePreferences(List<GenrePreference> genrePreferences, int userId)
+        public async Task UpdateGenrePreferences(List<GenrePreference> genrePreferences, string username)
         {
-            var user = await _identityRepository.GetUser(userId);
+            var user = await _identityRepository.GetUser(username);
             if (user != null)
             {
-                await _identityRepository.DeleteUser(user);
+                await _identityRepository.UpdateGenrePreferences(genrePreferences,user.ID);
             }
             else
             {

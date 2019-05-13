@@ -26,6 +26,7 @@ namespace Services.Implementations
         public async Task<Playlist> LoadPlaylistWithSmartSearch(State state, int userId)
         {
             var user = _identityService.GetUser(userId);
+            throw new NotImplementedException();
         }
     }
 }

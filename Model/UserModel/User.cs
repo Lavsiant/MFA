@@ -10,6 +10,8 @@ namespace Model
         public User()
         {
             Playlists = new List<Playlist>();
+            Preferences = new List<GenrePreference>();
+            State = new State();
         }
 
         public int ID { get; set; }

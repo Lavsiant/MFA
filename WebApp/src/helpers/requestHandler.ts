@@ -6,9 +6,9 @@ export default async function handleRequest<TResult,TParams>(
     Promise<Response<TResult>>, dispatch: any, requestParams: TParams)
      : Promise<TResult>{
 
-    const response : Response<TResult> = await fetch(requestParams);
-    if(!response.Success){
-        switch (response.StatusCode){
+    const response : any = await fetch(requestParams);
+    if(!response.success){
+        switch (response.statusCode){
            case 401:
                 dispatch(push('/login'));
            default:
@@ -17,7 +17,7 @@ export default async function handleRequest<TResult,TParams>(
         }
     }
     else{
-        return response.Data;
+        return response.data;
     }
 }
 

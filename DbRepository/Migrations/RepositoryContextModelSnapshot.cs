@@ -29,7 +29,11 @@ namespace DbRepository.Migrations
 
                     b.Property<int>("Preference");
 
+                    b.Property<int?>("UserID");
+
                     b.HasKey("ID");
+
+                    b.HasIndex("UserID");
 
                     b.ToTable("GenrePreference");
                 });
@@ -129,8 +133,6 @@ namespace DbRepository.Migrations
 
                     b.Property<string>("Password");
 
-                    b.Property<int?>("PreferencesID");
-
                     b.Property<int>("Role");
 
                     b.Property<int?>("StateID");
@@ -139,13 +141,18 @@ namespace DbRepository.Migrations
 
                     b.HasKey("ID");
 
-                    b.HasIndex("PreferencesID");
-
                     b.HasIndex("StateID");
 
                     b.HasIndex("TokenID");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("Model.GenrePreference", b =>
+                {
+                    b.HasOne("Model.User")
+                        .WithMany("Preferences")
+                        .HasForeignKey("UserID");
                 });
 
             modelBuilder.Entity("Model.Playlist", b =>
@@ -177,10 +184,6 @@ namespace DbRepository.Migrations
 
             modelBuilder.Entity("Model.User", b =>
                 {
-                    b.HasOne("Model.GenrePreference", "Preferences")
-                        .WithMany()
-                        .HasForeignKey("PreferencesID");
-
                     b.HasOne("Model.State", "State")
                         .WithMany()
                         .HasForeignKey("StateID");
