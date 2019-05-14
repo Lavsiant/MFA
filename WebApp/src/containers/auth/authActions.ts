@@ -39,7 +39,7 @@ export const getCurrentUser = createAsync<void,IUser>(
   'current',
   async (p: void, d: any) => {
     var result : Response<IUser> = await authService.getCurrentUser();
-    return result.Data;
+    return result.data;
 
   }
 )

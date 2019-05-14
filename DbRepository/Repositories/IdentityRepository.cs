@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Model;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -102,9 +103,15 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                var user = await context.Users.Include(x=>x.Preferences).FirstOrDefaultAsync(x => x.ID == userId);
-                user.Preferences = genrePreferences;
-                await context.SaveChangesAsync();
+                try
+                {
+                    var user = context.Users.Include(x=>x.Preferences).Include(x=>x.Playlists).Include(x=>x.State).FirstOrDefault(x => x.ID == userId);
+                    user.Preferences = genrePreferences;
+                    await context.SaveChangesAsync();
+                }catch (Exception e)
+                {
+
+                }
             }
         }
 

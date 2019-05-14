@@ -1,7 +1,7 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import UserState from "../../interfaces/user/userState";
 import IUser from "../../interfaces/user/user";
-import {getAllUsers} from "./userActions";
+import {getAllUsers, submitForm} from "./userActions";
 
 
 
@@ -21,6 +21,10 @@ export const userReducer = reducerWithInitialState(INITIAL_STATE)
         isLoading: false
     }))
     .case(getAllUsers.async.started, (state) => ({
+        ...state,
+        isLoading: true
+    }))
+    .case(submitForm.async.done, (state) => ({
         ...state,
         isLoading: true
     }))
