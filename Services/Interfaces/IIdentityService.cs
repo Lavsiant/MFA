@@ -19,9 +19,9 @@ namespace Services.Interfaces
 
         Task DeleteUser(int id);
 
+        Task UpdateGenrePreferences(List<GenrePreference> genrePreferences, string username);
         Task UpdateGenrePreferences(List<GenrePreference> genrePreferences, int userId);
 
         Task<User> GetFullUser(int id);
-        Task UpdateGenrePreferences(List<GenrePreference> genrePreferences, string username);
     }
 }
