@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DbRepository.Interfaces;
 using Model;
 using Services.Interfaces;
+using Services.Models.Common;
 
 namespace Services.Implementations
 {
@@ -17,9 +18,15 @@ namespace Services.Implementations
             _songRepository = songRepository;
         }
 
-        public async Task CreateSong(Song song)
+        public async Task<int> CreateSong(Song song)
         {
-            await _songRepository.CreateSong(song);
+            var songInDb = await _songRepository.GetSongByFullName(song.Band, song.Name);
+            if (songInDb != null)
+            {
+                throw new TypedException(ExceptionType.BadRequest, "Current song is already exists");
+            }
+
+            return await _songRepository.CreateSong(song);
         }
 
         public async Task<Song> GetSongByFullName(string band, string name)

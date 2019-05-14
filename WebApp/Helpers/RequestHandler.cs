@@ -15,8 +15,8 @@ namespace WebApp.Helpers
             executebleFunc();
             return new Response()
             {
-                StatusCode = HttpStatusCode.OK,
-                Success = true,
+                statusCode = HttpStatusCode.OK,
+                success = true,
             };
         }
 
@@ -25,8 +25,8 @@ namespace WebApp.Helpers
                 T result = await executebleFunc();
                 return new Response<T>()
                 {
-                    StatusCode = HttpStatusCode.OK,
-                    Success = true,
+                    statusCode = HttpStatusCode.OK,
+                    success = true,
                     Data = result
                 };        
         }
@@ -35,8 +35,8 @@ namespace WebApp.Helpers
             await executebleFunc();
             return new Response()
             {
-                StatusCode = HttpStatusCode.OK,
-                Success = true,
+                statusCode = HttpStatusCode.OK,
+                success = true,
             };
         }
 

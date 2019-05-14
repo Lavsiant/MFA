@@ -5,8 +5,9 @@ import { ISong } from '../interfaces/song';
 import Response from '../interfaces/response'
 
 export const songService = {    
-    getAllSongs
-
+    getAllSongs,
+    createSong,
+    getSong
 };
 
 async function getAllSongs() : Promise<Response<ISong[]>> {
@@ -18,7 +19,27 @@ async function getAllSongs() : Promise<Response<ISong[]>> {
 
 }
 
-async function createSong(song : ISong) :
+async function getSong(id : number) : Promise<Response<ISong>>{
+    const res = await fetch('/api/song/id?id=' + id);
+    if(!res.ok){              
+        throw new Error('Internal error');
+    }    
+    return res.json();
+
+}
+
+async function createSong(song : ISong) : Promise<Response<number>> {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(song)
+    };
+    const res = await fetch('/api/song/create', requestOptions);
+    if(!res.ok){              
+        throw new Error('Internal error');
+    } 
+    return res.json();
+}
 
 async function submitPreferences(gp: IGenrePreference[], userId: string ) : Promise<Response<any>> {
     const requestOptions = {

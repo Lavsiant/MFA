@@ -25,7 +25,7 @@ namespace WebApp.Controllers
 
         [Route("create")]
         [HttpPost]
-        public async Task<Response> CreateSong([FromBody] SongViewModel model)
+        public async Task<Response<int>> CreateSong([FromBody] SongViewModel model)
         {
             return await RequestHandler.ExecuteRequestAsync(async () =>
             {
@@ -36,7 +36,7 @@ namespace WebApp.Controllers
                     Genre = model.Genre,
                     Band = model.Band
                 };
-                await _songService.CreateSong(songModel);
+                return await _songService.CreateSong(songModel);
             });
         }
 

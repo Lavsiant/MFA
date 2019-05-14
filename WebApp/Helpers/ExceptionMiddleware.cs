@@ -45,7 +45,7 @@ namespace WebApp.Helpers
             response.ContentType = "application/json";
             response.StatusCode = statusCode;
             var responseObj = Mapper.Map<Response>(_exceptionService.GetResponseByExceptionType(exception));
-            responseObj.Success = false;
+            responseObj.success = false;
 
             await response.WriteAsync(JsonConvert.SerializeObject(responseObj));
         }
@@ -58,9 +58,9 @@ namespace WebApp.Helpers
             response.StatusCode = statusCode;
             var responseObj = new Response()
             {
-                StatusCode = HttpStatusCode.InternalServerError,
-                Success = false,
-                ErrorMessage = "Internal error",
+                statusCode = HttpStatusCode.InternalServerError,
+                success = false,
+                errorMessage = "Internal error",
             };
             await response.WriteAsync(JsonConvert.SerializeObject(responseObj));
         }

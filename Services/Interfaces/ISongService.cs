@@ -12,7 +12,7 @@ namespace Services.Interfaces
 
         Task<Song> GetSongByFullName(string band, string name);
 
-        Task CreateSong(Song song);
+        Task<int> CreateSong(Song song);
 
         Task<List<Song>> GetSongsByGenre(Genre genre);
 

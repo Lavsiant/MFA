@@ -13,12 +13,13 @@ namespace DbRepository.Repositories
     {
         public SongRepository(string connectionString, IRepositoryContextFactory contextFactory) : base(connectionString, contextFactory) { }
 
-        public async Task CreateSong(Song song)
+        public async Task<int> CreateSong(Song song)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 context.Songs.Add(song);
                 await context.SaveChangesAsync();
+                return song.ID;
             }
         }
 
@@ -34,7 +35,7 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Songs.FirstOrDefaultAsync(x => x.ID == id);
+                return await context.Songs.Include(x=>x.State).FirstOrDefaultAsync(x => x.ID == id);
             }
         }
 

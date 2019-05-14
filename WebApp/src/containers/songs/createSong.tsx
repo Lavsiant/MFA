@@ -16,8 +16,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-
+import {songService} from '../../services/songService'
 import Button from '@material-ui/core/Button';
+import handleRequest from '../../helpers/requestHandler';
 
 
 interface Props {
@@ -26,6 +27,7 @@ interface Props {
 
 interface State {
     song: ISong;
+    error: string;
 }
 
 
@@ -43,14 +45,45 @@ class SongList extends React.Component<Props, State>{
                     mood: Mood.Undefined,
                     weather: Weather.Undefined
                 }
-            }
+            },
+            error: ''
         };
     }
 
-    handleSubmit = async (event) => {
-
-       
-
+    handleSubmit = (event) => {
+        if(!this.state.song.name){
+            this.setState({
+                ...this.state,
+                error: 'Type song name please'
+            })
+        }
+        else if(!this.state.song.band) {
+            this.setState({
+                ...this.state,
+                error: 'Type band please'
+            })
+        }
+        else{
+            songService.createSong(this.state.song).then((res) => {
+                if(res.success){
+                    //to do
+                    alert('good');
+                }
+                else{
+                    this.setState({
+                        ...this.state,
+                        error: res.errorMessage
+                    });
+                }
+                // window.location = config.apiUrl + "/tabs";
+            }).catch((ex) => {
+                this.setState({
+                    ...this.state,
+                    error: ex
+                });
+            });
+           
+        }               
     }
 
     handleGeneralChange = (e) => {
@@ -90,7 +123,6 @@ class SongList extends React.Component<Props, State>{
             <Paper className='tab-create' style={{ marginTop: 100, paddingBottom: 20 }} >
                 <div style={{ textAlign: 'center' }}>
                     <h2>Song</h2>
-                    <form name="form" onSubmit={this.handleSubmit} style={{ textAlign: 'center' }}>
                         <div className='field'>
                             <TextField
                                 style={{ width: '90%' }}
@@ -111,7 +143,7 @@ class SongList extends React.Component<Props, State>{
                             <TextField
                                 style={{ width: '90%' }}
                                 label='Band'
-                                type="number"
+                                type="text"
                                 name="band"
                                 autoComplete="Username"
                                 margin="normal"
@@ -155,7 +187,7 @@ class SongList extends React.Component<Props, State>{
                                 label='Weather'
                                 //className={styles.textField}
                                 style={{ width: '90%' }}
-                                value={song.genre}
+                                value={song.state.weather}
                                 name='weather'
                                 // SelectProps={{
                                 //     MenuProps: styles
@@ -184,7 +216,7 @@ class SongList extends React.Component<Props, State>{
                                 label='Mood'
                                 //className={styles.textField}
                                 style={{ width: '90%' }}
-                                value={song.genre}
+                                value={song.state.mood}
                                 name='mood'
                                 // SelectProps={{
                                 //     MenuProps: styles
@@ -210,7 +242,7 @@ class SongList extends React.Component<Props, State>{
                                 label='Location'
                                 //className={styles.textField}
                                 style={{ width: '90%' }}
-                                value={song.genre}
+                                value={song.state.location}
                                 name='location'
                                 // SelectProps={{
                                 //     MenuProps: styles
@@ -234,9 +266,10 @@ class SongList extends React.Component<Props, State>{
 
 
                         <div className="form-group">
-                            <Button size='large' variant="contained" type='submit' style={{ marginBottom: 20 }} color="primary"> Create </Button>
+                            <Button size='large' variant="contained" type='button' onClick={this.handleSubmit} style={{ marginBottom: 20 }} color="primary"> Create </Button>
                         </div>
-                    </form>
+                        {this.state.error ? 
+                        <div style={{color: 'red'}}> {this.state.error} </div> : null}
                 </div>
             </Paper>
         )

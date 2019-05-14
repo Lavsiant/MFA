@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import * as React from 'react';
 import { connect } from 'react-redux';
 import IUser from '../../interfaces/user/user';
@@ -52,7 +52,7 @@ class Header extends React.Component<HeaderProps,State> {
                 <AppBar position="static">
                     <Tabs style={{  flexGrow: 1}} value={this.state.value} onChange={this.handleChange} centered>
                         {this.props.user ?                        
-                        <Tab label="Logout" onClick={this.handleLogOut} /> :
+                        <Tab label="Logout"onClick={this.handleLogOut} /> :
                         <Tab label="Login"  />
                         }
                     </Tabs>
@@ -61,6 +61,8 @@ class Header extends React.Component<HeaderProps,State> {
         );
     }
 }
+// component={props => <NavLink  to="/home" />} 
+// component={props => <NavLink  to="/login" />}
 
 const mapProps = (state: any) => {
     return {
