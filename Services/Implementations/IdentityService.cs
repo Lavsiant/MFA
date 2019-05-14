@@ -73,5 +73,11 @@ namespace Services.Implementations
             var user = await _identityRepository.GetUser(id);
             return user ?? throw new TypedException(ExceptionType.BadRequest);
         }
+
+        public async Task<User> GetFullUser(int id)
+        {
+            var user = await _identityRepository.GetFullUser(id);
+            return user ?? throw new TypedException(ExceptionType.BadRequest);
+        }
     }
 }
