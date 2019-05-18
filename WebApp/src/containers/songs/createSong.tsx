@@ -1,7 +1,7 @@
 
 import { Link } from 'react-router-dom';
 import { getAllSongs } from './songActions'
-import { withStyles } from '@material-ui/core/styles';
+
 import "isomorphic-fetch";
 import { ISong, Location, Mood, Weather } from '../../interfaces/song';
 import { AppDispatch } from '../../helpers/appDispatch';

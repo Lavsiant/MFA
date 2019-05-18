@@ -3,6 +3,7 @@ import UserState from "../../interfaces/user/userState";
 import IUser from "../../interfaces/user/user";
 import { register, login, logout, getCurrentUser } from "./authActions";
 import AuthState from "../../interfaces/auth/authState";
+import {updateUser} from '../user/userActions';
 
 
 
@@ -40,6 +41,14 @@ export const authReducer = reducerWithInitialState(INITIAL_STATE)
         user: null
     }))
     .case(getCurrentUser.async.done, (state,payload) => ({
+        ...state,
+        user: payload.result
+    }))
+    .case(getCurrentUser.async.started, (state) => ({
+        ...state,
+        user: state.user
+    }))
+    .case(updateUser.async.done, (state,payload) => ({
         ...state,
         user: payload.result
     }))

@@ -7,6 +7,7 @@ import { AppDispatch } from '../../helpers/appDispatch';
 import { IGenrePreference } from '../../models/genres';
 import { number } from 'prop-types';
 import { push } from 'connected-react-router'
+import handleRequest from '../../helpers/requestHandler';
 
 
 var factory = actionCreatorFactory();
@@ -16,6 +17,12 @@ export const getAllUsers = createAsync<{},IUser[]>(
   'getAllUsers',
   async (p : any,d: any) =>{
   return await userService.getAllUsers();
+})
+
+export const updateUser = createAsync<IUser,IUser>(
+  'updateUser',
+  async (p : IUser,d: any) =>{
+    return await handleRequest<IUser, IUser>(userService.updateUser, d, p);
 })
 
 export const submitForm = createAsync<{id:string, gps: IGenrePreference[]}, any>(

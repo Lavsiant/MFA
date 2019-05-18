@@ -29,12 +29,12 @@ namespace Services.Implementations
             return await _identityRepository.GetUser(username);
         }
 
-        public async Task UpdateUser(User updatedUser)
+        public async Task<User> UpdateUser(User updatedUser)
         {
             var user = await _identityRepository.GetUser(updatedUser.ID);
             if (user != null)
             {
-                await _identityRepository.UpdateUser(updatedUser);
+                return await _identityRepository.UpdateUser(updatedUser);
             }
             else
             {
@@ -61,6 +61,19 @@ namespace Services.Implementations
             if (user != null)
             {
                 await _identityRepository.UpdateGenrePreferences(genrePreferences,user.ID);
+            }
+            else
+            {
+                throw new TypedException(ExceptionType.BadRequest, "User does not exist");
+            }
+        }
+
+        public async Task<List<GenrePreference>> GetGenrePreferences(string username)
+        {
+            var user = await _identityRepository.GetUser(username);
+            if (user != null)
+            {
+                return await _identityRepository.GetGenrePreferences(user.ID);
             }
             else
             {

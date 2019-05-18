@@ -1,10 +1,15 @@
 import { config } from '../helpers/config';
 import IUser from '../interfaces/user/user';
 import { IGenrePreference } from '../models/genres';
+import TypedResponse from '../interfaces/response'
+import { func } from 'prop-types';
+
 
 export const userService = {    
     getAllUsers: getAllUsers,
-    submitPreferences
+    submitPreferences,
+    updateUser,
+    getUserPreferences
 };
 
 function getAllUsers() : Promise<IUser[]> {
@@ -49,4 +54,27 @@ async function submitPreferences(gp: IGenrePreference[], userId: string ) : Prom
     const response = res.json();
 
     return res.json();   
+}
+
+async function updateUser(user: IUser ) : Promise<TypedResponse<IUser>> {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(user)
+    };
+
+    const res = await fetch('/api/identity/update',  requestOptions);
+    if(!res.ok){              
+        throw new Error('Internal error');
+    }    
+
+    return res.json();   
+}
+
+async function getUserPreferences(username : string) : Promise<TypedResponse<IGenrePreference[]>> {
+    const res = await fetch('/api/identity/get-preferences?username=' + username);
+    if(!res.ok){              
+        throw new Error('Internal error');
+    }   
+    return res.json();
 }

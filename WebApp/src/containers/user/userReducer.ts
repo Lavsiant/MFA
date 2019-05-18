@@ -1,12 +1,13 @@
 import { reducerWithInitialState } from "typescript-fsa-reducers";
 import UserState from "../../interfaces/user/userState";
 import IUser from "../../interfaces/user/user";
-import {getAllUsers, submitForm} from "./userActions";
+import {getAllUsers, submitForm, updateUser} from "./userActions";
 
 
 
 const INITIAL_STATE: UserState = {
     users: [],
+    user : null,
     isLoading: false,
 };
 
@@ -28,6 +29,7 @@ export const userReducer = reducerWithInitialState(INITIAL_STATE)
         ...state,
         isLoading: true
     }))
+    
     
   
     

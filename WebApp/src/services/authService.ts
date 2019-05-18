@@ -45,8 +45,7 @@ async function logout() : Promise<void>{
     const res = await fetch('/api/auth/logout');
     if(!res.ok){
         throw new Error('Internal error');
-    }     
-    return res.json();  
+    }        
 }
 
 async function getCurrentUser() : Promise<Response<IUser>>{

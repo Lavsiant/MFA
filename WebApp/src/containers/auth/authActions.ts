@@ -18,19 +18,24 @@ var createAsync = asyncFactory<AuthState>(factory);
 export const register = createAsync<RegisterUserModel, IUser>(
   'register',
   async (p: RegisterUserModel, d: any) => {
-    return await handleRequest<IUser, RegisterUserModel>(authService.register,d,p);
+    const user = await handleRequest<IUser, RegisterUserModel>(authService.register,d,p);
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
   });
 
 export const login = createAsync<LoginModel, IUser>(
   'login',
   async (p: LoginModel, d: any, ) => {
-    return await handleRequest<IUser, LoginModel>(authService.login, d, p);
+    const user = await handleRequest<IUser, LoginModel>(authService.login, d, p);
+    localStorage.setItem('user', JSON.stringify(user));
+    return user;
   });
 
 export const logout = createAsync<void,void>(
   'logout',
   async (p: void, d: any) => {
      await authService.logout();
+     localStorage.removeItem('user');
      d(push('/login'));
   }
 )
@@ -39,6 +44,7 @@ export const getCurrentUser = createAsync<void,IUser>(
   'current',
   async (p: void, d: any) => {
     var result : Response<IUser> = await authService.getCurrentUser();
+    localStorage.setItem('user', JSON.stringify(result.data));
     return result.data;
 
   }

@@ -8,6 +8,7 @@ using Services.Interfaces;
 using WebApp.Helpers;
 using WebApp.Models;
 using WebApp.ViewModels;
+using System.Linq;
 
 namespace WebApp.Controllers
 {
@@ -47,17 +48,19 @@ namespace WebApp.Controllers
         [Route("update")]
         [HttpPost]
         [Authorize(AuthenticationSchemes = "Basic")]
-        public async Task<Response> UpdateUser(UserViewModel userViewModel)
+        public async Task<Response<User>> UpdateUser([FromBody] UserViewModel userViewModel)
         {
             return await RequestHandler.ExecuteRequestAsync(async () =>
             {
                 var user = new User()
                 {
-                    Email = userViewModel.Email,
-                    Login = userViewModel.Login,
-                    ID = userViewModel.ID
+                    Email = userViewModel.email,
+                    //Login = userViewModel.Login,
+                    Password = userViewModel.password,
+                    ID = userViewModel.id
                 };
-                 await _identityService.UpdateUser(user);
+                 return await _identityService.UpdateUser(user);
+                    
             });
         }
 
@@ -79,6 +82,17 @@ namespace WebApp.Controllers
             return await RequestHandler.ExecuteRequestAsync(async () =>
             {
                 await _identityService.UpdateGenrePreferences(genrePreferences, username);
+            });
+        }
+
+        [Route("get-preferences")]
+        [HttpGet]
+        public async Task<Response<List<GenrePreference>>> UpdateGenrePreferences([FromQuery] string username)
+        {
+            return await RequestHandler.ExecuteRequestAsync(async () =>
+            {
+                var result = await _identityService.GetGenrePreferences(username);
+                return result.OrderBy(x => x.Genre).ToList();
             });
         }
     }

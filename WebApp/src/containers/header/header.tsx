@@ -21,13 +21,15 @@ interface HeaderProps {
 
 interface State {
     value: number
+    loggedIn: boolean
 }
 
 class Header extends React.Component<HeaderProps,State> {
     constructor(props) {
         super(props);
         this.state = {
-            value: 0
+            value: 0,
+            loggedIn: false
         }
     }
 
@@ -39,19 +41,27 @@ class Header extends React.Component<HeaderProps,State> {
         this.props.logout();
       }
 
-    componentDidMount = () => {
-        if (this.props.user == null) {
-            this.props.getCurrentUser();
+    componentWillMount = () => {
+        if (localStorage.getItem('user')) {
+            this.setState({
+                loggedIn: true
+            })
+        }
+        else{
+            this.setState({
+                loggedIn: true
+            })
         }
     }
 
     render() {
+
         return (
             <header>
         
                 <AppBar position="static">
                     <Tabs style={{  flexGrow: 1}} value={this.state.value} onChange={this.handleChange} centered>
-                        {this.props.user ?                        
+                        {this.state.loggedIn ?                        
                         <Tab label="Logout"onClick={this.handleLogOut} /> :
                         <Tab label="Login"  />
                         }

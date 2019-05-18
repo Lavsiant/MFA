@@ -50,7 +50,7 @@ namespace WebApp.Controllers
         }
 
         [Route("logout")]
-        [HttpPost]
+        [HttpGet]
         public Response Logout()
         {
             return RequestHandler.ExecuteRequest(() =>
@@ -85,6 +85,8 @@ namespace WebApp.Controllers
             var response = HttpContext.Response;
             response.Cookies.Delete("token");
             response.Cookies.Delete("user");
+            response.Cookies.Append("token", "");
+            response.Cookies.Append("user", "");
         }
     }
 }

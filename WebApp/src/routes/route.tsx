@@ -8,6 +8,7 @@ import Questionnaire from '../containers/user/questionnaire'
 import SongList from '../containers/songs/songList'
 import SongCreate from '../containers/songs/createSong';
 import SongDetails from '../containers/songs/songDetails';
+import Profile from '../containers/user/profileNavgation';
 
 
 export default class Routing extends React.Component {
@@ -24,6 +25,7 @@ export default class Routing extends React.Component {
                 <Route path="/songs" component={SongList} />
                 <Route path="/song-create" component={SongCreate} />
                 <Route path="/song/:id" render={(props) => <SongDetails id={props.match.params.id} {...props}/>} />
+                <Route path="/profile" component={Profile} />
                 {/* <Route path="/profile" component={UserDetails}/>
                   */}
 

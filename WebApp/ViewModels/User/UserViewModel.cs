@@ -7,10 +7,12 @@ namespace WebApp.ViewModels
 {
     public class UserViewModel
     {
-        public string Login { get; set; }
+        public string login { get; set; }
 
-        public string Email { get; set; }
+        public string email { get; set; }
 
-        public int ID { get; set; }
+        public int id { get; set; }
+
+        public string password { get; set; }
     }
 }

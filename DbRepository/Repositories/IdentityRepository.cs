@@ -24,7 +24,7 @@ namespace DbRepository.Repositories
 
         public async Task<User> GetUser(string login)
         {
-            using(var context = ContextFactory.CreateDbContext(ConnectionString))
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 return await context.Users.FirstOrDefaultAsync(x => x.Login == login);
             }
@@ -67,7 +67,7 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Users.Include(x=>x.Playlists).Include(x=>x.Preferences).FirstOrDefaultAsync(x => x.Login == login);
+                return await context.Users.Include(x => x.Playlists).Include(x => x.Preferences).FirstOrDefaultAsync(x => x.Login == login);
             }
         }
 
@@ -79,14 +79,16 @@ namespace DbRepository.Repositories
             }
         }
 
-        public async Task UpdateUser(User user)
+        public async Task<User> UpdateUser(User user)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var userToUpdate = await context.Users.FirstOrDefaultAsync(x => x.ID == user.ID);
-                userToUpdate.Login = user.Login;
+                //userToUpdate.Login = user.Login;
                 userToUpdate.Email = user.Email;
+                userToUpdate.Password = user.Password;
                 await context.SaveChangesAsync();
+                return userToUpdate;
             }
         }
 
@@ -105,12 +107,28 @@ namespace DbRepository.Repositories
             {
                 try
                 {
-                    var user = context.Users.Include(x=>x.Preferences).Include(x=>x.Playlists).Include(x=>x.State).FirstOrDefault(x => x.ID == userId);
+                    var user = context.Users.Include(x => x.Preferences).FirstOrDefault(x => x.ID == userId);
                     user.Preferences = genrePreferences;
                     await context.SaveChangesAsync();
-                }catch (Exception e)
+                }
+                catch (Exception e)
                 {
 
+                }
+            }
+        }
+        public async Task<List<GenrePreference>> GetGenrePreferences(int id)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var user = await context.Users.Include(x => x.Preferences).FirstOrDefaultAsync(x => x.ID == id);
+                if (user != null)
+                {
+                    return user.Preferences;
+                }
+                else
+                {
+                    return null;
                 }
             }
         }
