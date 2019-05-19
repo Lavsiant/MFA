@@ -60,7 +60,13 @@ namespace Services.Implementations
             }
 
         }
-        
+
+        public async Task DeleteSongFromPlaylist(int songId, int playlistId)
+        {
+            await _playlistRepository.DeleteSongFromPlaylist(songId, playlistId);            
+
+        }
+
         public async Task UpdatePlaylist(PlaylistModel model)
         {
             var playlist = new Playlist()

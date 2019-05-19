@@ -95,5 +95,22 @@ namespace WebApp.Controllers
                 return result.OrderBy(x => x.Genre).ToList();
             });
         }
+
+        [Route("playlists")]
+        [HttpGet]
+        public async Task<Response<List<Playlist>>> GetUserPlaylists([FromQuery] string username)
+        {
+            return await RequestHandler.ExecuteRequestAsync(async () =>
+            {
+                var res = await _identityService.GetUserPlaylists(username);
+                foreach (var item in res)
+                {
+                    item.Owner = null;
+                    item.PlaylistSongs = null;
+                }
+                return res;
+              
+            });
+        }
     }
 }

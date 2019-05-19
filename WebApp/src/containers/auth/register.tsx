@@ -54,7 +54,7 @@ class RegisterPage extends React.Component<AuthProps, State> {
         this.props.register(user)
         .then((res) => {
             if (res) {
-                this.props.push('/home');
+                // this.props.push('/home');
             }
         })
         .catch((er)=>
@@ -70,7 +70,7 @@ class RegisterPage extends React.Component<AuthProps, State> {
         const { user } = this.state;
 
         return (
-            <Paper className='login' style={{ marginTop: 200 }}>
+            <Paper className='login' style={{ marginTop: 40 }}>
                 <div>
                     <h2>Register</h2>
                     <form name="form" onSubmit={this.handleSubmit}>

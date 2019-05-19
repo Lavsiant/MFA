@@ -10,6 +10,7 @@ import Divider from '@material-ui/core/Divider';
 import UserProfile from './userProfile';
 import Preferences from './questionnaire';
 import Language from './languageSelect';
+import { Paper } from '@material-ui/core';
 
 interface Props{
 }
@@ -58,11 +59,11 @@ class ProfileTabs extends React.PureComponent<Props,State> {
 
                     </List>
                 </div>
-                <div style={{width:'100%'}}>
+                <Paper style={{width:'100%', height:'-webkit-fill-available' } }>
                     { activeIndex === 0 && <div><UserProfile/></div> }
                     { activeIndex === 1 && <div><Preferences/></div> }
                     { activeIndex === 2 && <div><Language/></div> }
-                 </div>
+                 </Paper>
             </div>
         )
     }

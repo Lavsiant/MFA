@@ -20,5 +20,7 @@ namespace Services.Interfaces
         Task<List<Playlist>> GetPlaylistsByUser(int userId);
 
         Task AddSongToPlaylist(int songId, int playlistId);
+
+        Task DeleteSongFromPlaylist(int songId, int playlistId);
     }
 }

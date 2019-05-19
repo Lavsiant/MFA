@@ -1,12 +1,26 @@
 import {Weather, Location, Mood} from '../interfaces/song'
 import { Preference } from '../models/preferences';
+import { Genres } from '../models/genres';
 
 export const enumService = {    
     GetWeatherName,
     GetLocationName,
     GetMoodName,
-    GetPreferenceName
+    GetPreferenceName,
+    GetGenreName
 };
+
+function GetGenreName(genre : Genres){
+    switch (genre){
+        case Genres.Blues: return 'Blues';
+        case Genres.Classic: return 'Classic';
+        case Genres.HipHop: return 'HipHop';
+        case Genres.Instrumental: return 'Instrumental';
+        case Genres.Jazz: return 'Jazz';
+        case Genres.Metal: return 'Metal';
+        case Genres.Rock: return 'Rock';
+    }
+}
 
 function GetWeatherName(weather : Weather){
     switch (weather){

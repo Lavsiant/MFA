@@ -8,6 +8,7 @@ namespace WebApp.ViewModels.Song
 {
     public class SongViewModel
     {
+        public int id { get; set; }
         public string Name { get; set; }
 
         public string Band { get; set; }

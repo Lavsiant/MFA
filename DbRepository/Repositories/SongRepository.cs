@@ -88,7 +88,7 @@ namespace DbRepository.Repositories
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
-                return await context.Songs.ToListAsync();
+                return await context.Songs.Include(x=>x.State).ToListAsync();
             }
         }
 

@@ -25,7 +25,7 @@ namespace WebApp.Controllers
 
         [Route("create")]
         [HttpPost]
-        public async Task<Response> CreatePlaylist([FromBody] PlaylistViewModel playlistViewModel)
+        public async Task<Response> CreatePlaylist([FromBody] PlaylistViewModel playlistViewModel, [FromQuery] int userId)
         {
             return await RequestHandler.ExecuteRequestAsync(async () =>
             {
@@ -34,7 +34,7 @@ namespace WebApp.Controllers
                     Name = playlistViewModel.Name
                 };
                 //Mapper.Map<Playlist>(playlistViewModel);
-                await _playlistService.CreatePlaylist(playlist, playlistViewModel.OwnerId);
+                await _playlistService.CreatePlaylist(playlist,userId);
             });
         }
 
@@ -50,13 +50,15 @@ namespace WebApp.Controllers
                 {
                     playlistVMs.Add(new PlaylistViewModel()
                     {
+                        ID = playlist.ID,
                         Name = playlist.Name,
                         Songs = playlist.PlaylistSongs.Select(x => new SongViewModel()
                         {
                             Band = x.Song.Band,
                             State = x.Song.State,
                             Genre = x.Song.Genre,
-                            Name = x.Song.Name
+                            Name = x.Song.Name,
+                            id = x.Song.ID
 
                         }).ToList()
                     });
@@ -67,11 +69,21 @@ namespace WebApp.Controllers
 
         [Route("add-song")]
         [HttpGet]
-        public async Task<Response> GetAllUserPlaylists(int songId,int playlistId)
+        public async Task<Response> GetAllUserPlaylists([FromQuery] int songId, [FromQuery] int playlistId)
         {
             return await RequestHandler.ExecuteRequestAsync(async () =>
             {
                 await _playlistService.AddSongToPlaylist(songId,playlistId);
+            });
+        }
+
+        [Route("delete-song")]
+        [HttpGet]
+        public async Task<Response> DeleteSong([FromQuery] int songId, [FromQuery] int playlistId)
+        {
+            return await RequestHandler.ExecuteRequestAsync(async () =>
+            {
+                await _playlistService.DeleteSongFromPlaylist(songId, playlistId);
             });
         }
     }

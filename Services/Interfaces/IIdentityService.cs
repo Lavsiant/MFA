@@ -24,5 +24,7 @@ namespace Services.Interfaces
         Task<User> GetFullUser(int id);
 
         Task<List<GenrePreference>> GetGenrePreferences(string username);
+
+        Task<List<Playlist>> GetUserPlaylists(string username);
     }
 }

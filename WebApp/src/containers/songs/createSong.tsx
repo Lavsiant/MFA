@@ -250,7 +250,7 @@ class SongList extends React.Component<Props, State>{
                                 helperText='Choose location'
                                 margin="normal"
                                 variant="outlined"
-                                onChange={this.handleGeneralChange}
+                                onChange={this.handleStateChange}
                             >
                                 <MenuItem value={Location.Undefined}> Not selected </MenuItem>
                                 <MenuItem value={Location.Home}> Home </MenuItem>

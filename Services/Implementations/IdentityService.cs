@@ -92,5 +92,18 @@ namespace Services.Implementations
             var user = await _identityRepository.GetFullUser(id);
             return user ?? throw new TypedException(ExceptionType.BadRequest);
         }
+
+        public async Task<List<Playlist>> GetUserPlaylists(string username)
+        {
+            var user = await _identityRepository.GetFullUser(username);
+            if (user != null)
+            {
+                return user.Playlists;
+            }
+            else
+            {
+                throw new TypedException(ExceptionType.BadRequest, "User does not exist");
+            }
+        }
     }
 }

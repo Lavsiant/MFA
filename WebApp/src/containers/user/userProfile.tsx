@@ -91,7 +91,6 @@ class UserProfile extends React.Component<Props, State>  {
     render() {
         const { user } = this.state;
         return (
-            <Paper className='tab-create'  >
                 <div style={{ textAlign: 'center' }}>
                     <h2>User</h2>
                     <div className='field'>
@@ -132,7 +131,7 @@ class UserProfile extends React.Component<Props, State>  {
                     {/* {this.state.error ? 
                         <div style={{color: 'red'}}> {this.state.error} </div> : null} */}
                 </div>
-            </Paper>
+
         )
     }
 }

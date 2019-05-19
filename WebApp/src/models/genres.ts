@@ -2,6 +2,7 @@
  import {Preference} from './preferences';
 
 export enum Genres {
+    None = 0,
     Rock = 1,
     Metal = 2 ,
     Instrumental =3,
@@ -21,7 +22,7 @@ export function getGenresPreferences() : IGenrePreference[]{
     let map: IGenrePreference[] = [];
 
     for(var n in Genres) {
-        if (typeof Genres[n] === 'number') {
+        if (typeof Genres[n] === 'number' && Genres[n]!=="None") {
             map.push({genre: <any>Genres[n], name: n, preference: Preference.Medium});
         }
     }

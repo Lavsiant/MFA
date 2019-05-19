@@ -52,7 +52,7 @@ class LoginPage extends React.Component<LoginProps,LoginState>{
         const { loginModel } = this.state;
        
         return (
-            <Paper className='login' style={{marginTop:100}}>
+            <Paper className='login' style={{marginTop:40, width: 400}}>
                 <div>
                     <h2>Login</h2>
                     <form name="form" onSubmit={this.handleSubmit}>
