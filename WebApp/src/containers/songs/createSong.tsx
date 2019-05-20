@@ -67,7 +67,7 @@ class SongList extends React.Component<Props, State>{
             songService.createSong(this.state.song).then((res) => {
                 if(res.success){
                     //to do
-                    alert('good');
+                    window.location.href = '/songs';
                 }
                 else{
                     this.setState({

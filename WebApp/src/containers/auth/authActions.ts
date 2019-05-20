@@ -29,7 +29,7 @@ export const login = createAsync<LoginModel, IUser>(
   async (p: LoginModel, d: any, ) => {
     const user = await handleRequest<IUser, LoginModel>(authService.login, d, p);
     localStorage.setItem('user', JSON.stringify(user));
-    d(push('/songs'));
+    d(push('/home'));
     return user;
   });
 

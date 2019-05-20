@@ -125,7 +125,7 @@ export default class SongFilter extends React.Component<Props, State> {
             {
                 name: this.state.name,
                 band: this.state.band,
-                genre: e.target.value,
+                genre: this.state.genre,
                 mood: this.state.mood,
                 weather: this.state.weather,
                 location: e.target.value

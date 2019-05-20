@@ -70,14 +70,14 @@ class SongList extends React.Component<Props, State>{
         if (filterOptions.name)
             songs = songs.filter(x => x.name.toLowerCase().includes(filterOptions.name.toLowerCase()));
         if (filterOptions.band)
-            songs = songs.filter(x => x.band.toLowerCase().includes(filterOptions.name.toLowerCase()));
+            songs = songs.filter(x => x.band.toLowerCase().includes(filterOptions.band.toLowerCase()));
         if (filterOptions.genre !== Genres.None)
             songs = songs.filter(x => x.genre === filterOptions.genre);
         if (filterOptions.mood !== Mood.Undefined)
             songs = songs.filter(x => x.state.mood === filterOptions.mood);
         if (filterOptions.weather !== Weather.Undefined)
             songs = songs.filter(x => x.state.weather === filterOptions.weather);
-        if (filterOptions.locaton !== Location.Undefined)
+        if (filterOptions.location !== Location.Undefined)
             songs = songs.filter(x => x.state.location === filterOptions.location);
 
         this.setState({ filteredSongs: songs });
