@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Model;
 using Services.Models.Common;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace Services.Implementations
 {
@@ -32,13 +34,19 @@ namespace Services.Implementations
         public async Task<User> UpdateUser(User updatedUser)
         {
             var user = await _identityRepository.GetUser(updatedUser.ID);
-            if (user != null)
+            var userWithName = await _identityRepository.GetUser(updatedUser.Login);
+            if (user != null && userWithName== null)
             {
+                updatedUser.Password = GetHash(updatedUser.Password);
                 return await _identityRepository.UpdateUser(updatedUser);
+            }
+            else if(userWithName != null)
+            {
+                throw new TypedException(ExceptionType.BadRequest, "User with login already exists");
             }
             else
             {
-                throw new TypedException(ExceptionType.BadRequest,"User does not exist");
+                throw new TypedException(ExceptionType.BadRequest,"User does not exists");
             }
         }
 
@@ -47,6 +55,7 @@ namespace Services.Implementations
             var user = await _identityRepository.GetUser(id);
             if(user != null)
             {
+
                 await _identityRepository.DeleteUser(user);
             }
             else
@@ -103,6 +112,17 @@ namespace Services.Implementations
             else
             {
                 throw new TypedException(ExceptionType.BadRequest, "User does not exist");
+            }
+        }
+
+        private string GetHash(string value)
+        {
+            using (SHA256 hash = SHA256Managed.Create())
+            {
+                return String.Concat(hash
+                  .ComputeHash(Encoding.UTF8.GetBytes(value))
+                  .Select(item => item.ToString("x2")));
+
             }
         }
     }

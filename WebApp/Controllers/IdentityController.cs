@@ -55,7 +55,7 @@ namespace WebApp.Controllers
                 var user = new User()
                 {
                     Email = userViewModel.email,
-                    //Login = userViewModel.Login,
+                    Login = userViewModel.login,
                     Password = userViewModel.password,
                     ID = userViewModel.id
                 };

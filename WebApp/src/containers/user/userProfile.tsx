@@ -67,7 +67,8 @@ class UserProfile extends React.Component<Props, State>  {
                         user: {
                             ...this.state.user,
                             email: res.email,
-                            password: res.password,
+                            password: '',
+                            login: res.login,
                             id: res.id
                         }
                     });
@@ -112,13 +113,28 @@ class UserProfile extends React.Component<Props, State>  {
                     <div className='field'>
                         <TextField
                             style={{ width: '60%' }}
-                            label='Password'
+                            label='New password'
                             type="password"
-                            name="band"
+                            name="password"
                             autoComplete="Password"
                             margin="normal"
                             variant="outlined"
                             value={user.password}
+                            onChange={this.handleGeneralChange}
+                            required
+                        />
+                    </div>
+
+                    <div className='field'>
+                        <TextField
+                            style={{ width: '60%' }}
+                            label='Login'
+                            type="text"
+                            name="login"
+                            autoComplete="Password"
+                            margin="normal"
+                            variant="outlined"
+                            value={user.login}
                             onChange={this.handleGeneralChange}
                             required
                         />

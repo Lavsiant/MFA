@@ -84,7 +84,7 @@ namespace DbRepository.Repositories
             using (var context = ContextFactory.CreateDbContext(ConnectionString))
             {
                 var userToUpdate = await context.Users.FirstOrDefaultAsync(x => x.ID == user.ID);
-                //userToUpdate.Login = user.Login;
+                userToUpdate.Login = user.Login;
                 userToUpdate.Email = user.Email;
                 userToUpdate.Password = user.Password;
                 await context.SaveChangesAsync();

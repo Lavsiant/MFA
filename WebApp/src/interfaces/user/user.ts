@@ -6,4 +6,5 @@ export default interface IUser {
     token?: string;
     id?: number;
     password: string;
+    role?: number;
 }

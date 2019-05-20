@@ -18,6 +18,7 @@ interface State {
     weather: Weather;
     mood: Mood;
     location: Location;
+    isAdmin: boolean
 }
 
 export default class SongFilter extends React.Component<Props, State> {
@@ -29,8 +30,30 @@ export default class SongFilter extends React.Component<Props, State> {
             genre: Genres.None,
             mood: Mood.Undefined,
             weather: Weather.Undefined,
-            location: Location.Undefined
+            location: Location.Undefined,
+            isAdmin: false
         };
+    }
+
+    componentDidMount = () => {
+        if (localStorage.getItem('user')) {
+            const role = JSON.parse(localStorage.getItem('user')).role;
+            if (role === 1) {
+                this.setState({
+                    isAdmin: true
+                })
+            }
+            else {
+                this.setState({
+                    isAdmin: false
+                })
+            }
+        }
+        else {
+            this.setState({
+                isAdmin: false
+            })
+        }
     }
 
     onNameChanged = e => {
@@ -130,6 +153,7 @@ export default class SongFilter extends React.Component<Props, State> {
     }
 
     render() {
+
         let language = '';
         if (localStorage.getItem('lang')) {
             language = localStorage.getItem('lang');
@@ -265,13 +289,14 @@ export default class SongFilter extends React.Component<Props, State> {
                     </TextField>
 
                 </div>
-
-                <div className="filter" style={{ float: 'right', paddingTop: 16 }}>
-                    <Fab size="large" color="primary" style={{ float: 'right' }} aria-label="Add" onClick={this.createTabOpen}>
-                        <AddIcon />
-                    </Fab>
-                </div>
+                {this.state.isAdmin ?
+                    <div className="filter" style={{ float: 'right', paddingTop: 16 }}>
+                        <Fab size="large" color="primary" style={{ float: 'right' }} aria-label="Add" onClick={this.createTabOpen}>
+                            <AddIcon />
+                        </Fab>
+                    </div> : null}
+                     
             </div>
-        );
-    }
+            );
+        }
 }
