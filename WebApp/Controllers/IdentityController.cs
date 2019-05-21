@@ -9,6 +9,7 @@ using WebApp.Helpers;
 using WebApp.Models;
 using WebApp.ViewModels;
 using System.Linq;
+using Model;
 
 namespace WebApp.Controllers
 {

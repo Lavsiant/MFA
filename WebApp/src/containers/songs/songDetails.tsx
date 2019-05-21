@@ -66,7 +66,7 @@ class SongDetails extends React.Component<Props, State> {
                 //redirect to do
             })
 
-        if (localStorage.getItem('user')) {
+        if (localStorage.getItem('user') && localStorage.getItem('user')!=='undefined') {
             const username = JSON.parse(localStorage.getItem('user')).login;
             this.setState({
                 username: username

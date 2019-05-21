@@ -1,15 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2016
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model\Model.csproj", "{53E14F61-B341-42C6-9AD3-8555335BC6A9}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DbRepository", "DbRepository\DbRepository.csproj", "{CB764555-31BF-4ECA-8A54-A487F054E080}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp", "WebApp\WebApp.csproj", "{0FC22903-92CB-4DA1-81A4-83ED4051E73F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services", "Services\Services.csproj", "{3BEEA46B-2985-4B78-B254-7E1F028BDBE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Services.csproj", "{3BEEA46B-2985-4B78-B254-7E1F028BDBE9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Model", "Model1\Model.csproj", "{7D36B13E-BCEA-4FD9-8CC8-5BF73A2036F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamMob.Android", "XamMob\XamMob.Android\XamMob.Android.csproj", "{0E819E2B-3446-4711-BD7B-F4196C740BE8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XamMob", "XamMob\XamMob\XamMob.csproj", "{975EF4BF-F265-44CF-A892-BBE49EE3419D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +21,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53E14F61-B341-42C6-9AD3-8555335BC6A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53E14F61-B341-42C6-9AD3-8555335BC6A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53E14F61-B341-42C6-9AD3-8555335BC6A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53E14F61-B341-42C6-9AD3-8555335BC6A9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CB764555-31BF-4ECA-8A54-A487F054E080}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{CB764555-31BF-4ECA-8A54-A487F054E080}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB764555-31BF-4ECA-8A54-A487F054E080}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +33,20 @@ Global
 		{3BEEA46B-2985-4B78-B254-7E1F028BDBE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BEEA46B-2985-4B78-B254-7E1F028BDBE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BEEA46B-2985-4B78-B254-7E1F028BDBE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D36B13E-BCEA-4FD9-8CC8-5BF73A2036F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D36B13E-BCEA-4FD9-8CC8-5BF73A2036F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D36B13E-BCEA-4FD9-8CC8-5BF73A2036F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D36B13E-BCEA-4FD9-8CC8-5BF73A2036F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E819E2B-3446-4711-BD7B-F4196C740BE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E819E2B-3446-4711-BD7B-F4196C740BE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E819E2B-3446-4711-BD7B-F4196C740BE8}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0E819E2B-3446-4711-BD7B-F4196C740BE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E819E2B-3446-4711-BD7B-F4196C740BE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E819E2B-3446-4711-BD7B-F4196C740BE8}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{975EF4BF-F265-44CF-A892-BBE49EE3419D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{975EF4BF-F265-44CF-A892-BBE49EE3419D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{975EF4BF-F265-44CF-A892-BBE49EE3419D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{975EF4BF-F265-44CF-A892-BBE49EE3419D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -52,7 +52,7 @@ export default class Playlists extends React.PureComponent<Props, State> {
     }
 
     componentWillMount = () => {
-        if (localStorage.getItem('user')) {
+        if (localStorage.getItem('user') && localStorage.getItem('user')!=='undefined') {
             const userId = JSON.parse(localStorage.getItem('user')).id;
             this.setState({
                 userId: userId

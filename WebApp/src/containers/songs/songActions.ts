@@ -17,7 +17,7 @@ var factory = actionCreatorFactory();
 var createAsync = asyncFactory<AuthState>(factory);
 
 export const getAllSongs = createAsync<{}, ISong[]>(
-  'register',
+  'getAllSongs',
   async (p: {}, d: any) => {
     return await handleRequest<ISong[], {} >(songService.getAllSongs,d,p);
   });

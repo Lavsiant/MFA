@@ -36,7 +36,7 @@ export default class SongFilter extends React.Component<Props, State> {
     }
 
     componentDidMount = () => {
-        if (localStorage.getItem('user')) {
+        if (localStorage.getItem('user') && localStorage.getItem('user')!=='undefined') {
             const role = JSON.parse(localStorage.getItem('user')).role;
             if (role === 1) {
                 this.setState({

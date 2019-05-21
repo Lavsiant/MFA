@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DbRepository\DbRepository.csproj" />
-    <ProjectReference Include="..\Model\Model.csproj" />
+    <ProjectReference Include="..\Model1\Model.csproj" />
   </ItemGroup>
 
 </Project>

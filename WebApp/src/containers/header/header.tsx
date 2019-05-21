@@ -95,7 +95,7 @@ class Header extends React.Component<HeaderProps, State> {
         this.setState({
             header: header
         })
-        if (localStorage.getItem('user')) {
+        if (localStorage.getItem('user') && localStorage.getItem('user')!=='undefined') {
             this.setState({
                 loggedIn: true
             })

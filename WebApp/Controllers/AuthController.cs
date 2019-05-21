@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Model;
 using Services.Interfaces;
 using Services.Models.Auth;
+using Services.Models.Common;
 using System.Threading.Tasks;
 using WebApp.Helpers;
 using WebApp.Models;
@@ -67,7 +68,7 @@ namespace WebApp.Controllers
             var username = request.Cookies["user"];
             return await RequestHandler.ExecuteRequestAsync(async () =>
             {
-                return !string.IsNullOrEmpty(username) ? await _identityService.GetUser(username) : null;
+                return !string.IsNullOrEmpty(username) ? await _identityService.GetUser(username) : throw new System.Exception();
             });
         }
 
