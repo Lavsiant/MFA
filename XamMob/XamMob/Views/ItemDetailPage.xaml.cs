@@ -2,7 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-
+using System.Linq;
+using System.Net.Http;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -30,6 +31,27 @@ namespace XamMob.Views
 
         public List<SongViewModel> Songs { get; set; }
 
-      
+
+        async void OnItemSelected(object sender, SelectedItemChangedEventArgs args)
+        {
+            var item = args.SelectedItem as SongViewModel;
+            if (item == null)
+                return;
+
+            Device.OpenUri(new Uri("https://www.youtube.com/watch?v=WEQnzs8wl6E"));
+        }
+
+        async void DeletePlaylist(object sender, EventArgs args)
+        {
+            var client = new HttpClient();
+            await client.GetAsync($"http://{Storage.Ip}:{Storage.Port}/api/playlist/delete?userId={Storage.User.ID}&name={Playlist.Name}");
+            var pl = Storage.Playlists.FirstOrDefault(x => x.Name == Playlist.Name);
+            if (pl != null)
+            {
+                Storage.Playlists.Remove(pl);
+            }
+          
+            Application.Current.MainPage = new MainPage();
+        }
     }
 }

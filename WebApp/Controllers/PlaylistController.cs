@@ -38,6 +38,16 @@ namespace WebApp.Controllers
             });
         }
 
+        [Route("delete")]
+        [HttpGet]
+        public async Task<Response> DeletePlaylist(int userId, string name)
+        {
+            return await RequestHandler.ExecuteRequestAsync(async () =>
+            {               
+                await _playlistService.DeletePlayList(userId, name);
+            });
+        }
+
         [Route("all")]
         [HttpGet]
         public async Task<Response<List<PlaylistViewModel>>> GetAllUserPlaylists(int id)

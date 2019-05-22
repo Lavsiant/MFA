@@ -30,6 +30,18 @@ namespace Services.Implementations
             await _playlistRepository.CreatePlaylist(playlist,userId);
         }
 
+        public async Task DeletePlayList(int userId, string name)
+        {
+            await _playlistRepository.DeletePlaylist(name, userId);
+        }
+
+        public async Task<Playlist> CreatePlaylistWithReturn(Playlist playlist, int userId)
+        {
+            var user = await _identityRepository.GetUser(userId);
+            playlist.Owner = user ?? throw new TypedException(ExceptionType.BadRequest);
+            return await _playlistRepository.CreatePlaylistWithReturn(playlist, userId);
+        }
+
         public async Task<Playlist> GetPlaylist(int id)
         {
             return await _playlistRepository.GetPlaylist(id);

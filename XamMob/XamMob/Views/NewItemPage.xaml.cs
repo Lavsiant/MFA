@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-
+using System.Net.Http;
+using System.Net.Http.Headers;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -22,7 +24,7 @@ namespace XamMob.Views
 
             Item = new Item
             {
-                Text = "Item name",
+                Text = "Playlist name",
             };
 
             BindingContext = this;
@@ -30,8 +32,20 @@ namespace XamMob.Views
 
         async void Save_Clicked(object sender, EventArgs e)
         {
-            MessagingCenter.Send(this, "AddItem", Item);
-            await Navigation.PopModalAsync();
+            var client = new HttpClient();
+            var pl = new PlaylistViewModel()
+            {
+                Name = Item.Text
+            };
+            var myContent = JsonConvert.SerializeObject(pl);
+            var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+            var byteContent = new ByteArrayContent(buffer);
+            byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            var response = await client.PostAsync($"http://{Storage.Ip}:{Storage.Port}/api/playlist/create?userId=" + Storage.User.ID, byteContent);
+            Storage.Playlists.Add(pl);
+            Application.Current.MainPage = new MainPage();
+            //MessagingCenter.Send(this, "AddItem", Item);
+            //await Navigation.PopModalAsync();
         }
 
         async void Cancel_Clicked(object sender, EventArgs e)

@@ -10,7 +10,6 @@ namespace Services.Models.Song
         TopMedium,
         Medium,
         BotMedium,
-        Low,
         Lowest
     }
 }

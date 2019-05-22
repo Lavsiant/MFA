@@ -55,6 +55,7 @@ namespace WebApp.Helpers
             services.AddScoped<IPlaylistService, PlaylistService>();
             services.AddScoped<IWeatherSevice, WeatherService>();
             services.AddScoped<IWeatherProvider, OpenWeatherMapProvider>();
+            services.AddScoped<ISmartSerachService, SmartSearchService>();
         }
     }
 }

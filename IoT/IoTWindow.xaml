@@ -1,0 +1,21 @@
+﻿<Window x:Class="IoT.IoTWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IoT"
+        mc:Ignorable="d"
+        Title="IoTWindow" Height="550.763" Width="800">
+    <Grid>
+        <Button FontSize="20" Content="Get" HorizontalAlignment="Left" Margin="46,162,0,0" VerticalAlignment="Top" Width="211" RenderTransformOrigin="1.035,0.521" Height="46" Click="Button_Click"/>
+        <Label FontSize="15" Content="Console" HorizontalAlignment="Left" Margin="56,250,0,0" VerticalAlignment="Top" Width="114"/>
+        <TextBox x:Name="Console" FontSize="15" BorderThickness="2" HorizontalAlignment="Left" Height="211" Margin="46,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="267" RenderTransformOrigin="0.5,0.5"/>
+        <TextBox FontSize="15"  x:Name="Count" HorizontalAlignment="Left" Height="23" Margin="129,62,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="46"/>
+        <Label FontSize="15" Content="Count" HorizontalAlignment="Left" Margin="63,55,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Playlist" FontSize="21" HorizontalAlignment="Left" Height="40" Margin="129,97,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="128" TextChanged="TextBox_TextChanged"/>
+        <Label FontSize="15" Content="Playlist name" HorizontalAlignment="Left" Margin="27,99,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="Result" BorderThickness="2" FontSize="15" HorizontalAlignment="Left" Height="429" Margin="370,67,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="391"/>
+        <Label FontSize="15" Content="Result" HorizontalAlignment="Left" Margin="370,32,0,0" VerticalAlignment="Top" Width="114"/>
+
+    </Grid>
+</Window>

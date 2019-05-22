@@ -1,0 +1,17 @@
+﻿<Window x:Class="IoT.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IoT"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="408.779" Width="570.993">
+    <Grid Margin="0,0,12,6">
+        <TextBox x:Name="Ip" BorderThickness="2" FontSize="25" HorizontalAlignment="Left" Height="47" Margin="175,89,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="292" />
+        <Label  BorderThickness="2" BorderBrush="Gray" FontSize="25" Content="Ip" HorizontalAlignment="Left" Margin="91,89,0,0" VerticalAlignment="Top" Height="47" Width="79" Background="#FF6376CB"/>
+        <TextBox x:Name="Port" BorderThickness="2" FontSize="25" HorizontalAlignment="Left" Height="47" Margin="175,152,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="292"/>
+        <Label  BorderThickness="2" BorderBrush="Gray" FontSize="25" Content="Port" HorizontalAlignment="Left" Margin="91,152,0,0" VerticalAlignment="Top" Height="47" Width="79" Background="#FF6376CB"/>
+        <Button FontSize="25" Content="Process" HorizontalAlignment="Left" Margin="220,239,0,0" VerticalAlignment="Top" Width="135" Height="67" Background="#FF677BD6" Click="Button_Click"/>
+
+    </Grid>
+</Window>

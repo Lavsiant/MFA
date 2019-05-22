@@ -9,6 +9,7 @@ namespace Services.Interfaces
 {
     public interface IPlaylistService
     {
+        Task<Playlist> CreatePlaylistWithReturn(Playlist playlist, int userId);
         Task CreatePlaylist(Playlist playlist, int userId);
 
         Task UpdatePlaylist(PlaylistModel playlist);
@@ -22,5 +23,7 @@ namespace Services.Interfaces
         Task AddSongToPlaylist(int songId, int playlistId);
 
         Task DeleteSongFromPlaylist(int songId, int playlistId);
+
+        Task DeletePlayList(int userId, string name);
     }
 }

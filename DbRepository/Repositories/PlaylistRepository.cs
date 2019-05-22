@@ -26,6 +26,38 @@ namespace DbRepository.Repositories
             }
         }
 
+        public async Task DeletePlaylist(string name, int userId)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var user = context.Users.Include(x => x.Playlists).FirstOrDefault(x => x.ID == userId);
+                if (user != null)
+                {
+                    var playlist = user.Playlists.FirstOrDefault(x => x.Name == name);
+                    if (playlist != null)
+                    {
+                        context.Playlists.Remove(playlist);
+                    }
+
+                }
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<Playlist> CreatePlaylistWithReturn(Playlist playlist, int userId)
+        {
+            using (var context = ContextFactory.CreateDbContext(ConnectionString))
+            {
+                var user = context.Users.Include(x => x.Playlists).FirstOrDefault(x => x.ID == userId);
+                if (user != null)
+                {
+                    user.Playlists.Add(playlist);
+                }
+                await context.SaveChangesAsync();
+                return playlist;
+            }
+        }
+
         public async Task<Playlist> GetPlaylist(int id)
         {
             using (var context = ContextFactory.CreateDbContext(ConnectionString))

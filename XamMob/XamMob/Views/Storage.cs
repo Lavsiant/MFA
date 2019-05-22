@@ -10,5 +10,9 @@ namespace XamMob.Views
         public static User User { get; set; }
 
         public static List<PlaylistViewModel> Playlists { get; set; }
+
+        public static string Ip { get; set; }
+
+        public static string Port { get; set; }
     }
 }

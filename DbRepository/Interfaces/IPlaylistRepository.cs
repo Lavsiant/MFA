@@ -21,5 +21,9 @@ namespace DbRepository.Interfaces
         Task AddSongToPlaylist(PlaylistSong playlistSong);
 
         Task DeleteSongFromPlaylist(int songId, int playlistId);
+
+        Task DeletePlaylist(string name, int userId);
+
+        Task<Playlist> CreatePlaylistWithReturn(Playlist playlist, int userId);
     }
 }

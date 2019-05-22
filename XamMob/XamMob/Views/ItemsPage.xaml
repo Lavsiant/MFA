@@ -26,9 +26,11 @@
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="22" />
                         </StackLayout>
+                      
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
+            
         </ListView>
     </StackLayout>
     

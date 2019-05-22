@@ -20,6 +20,8 @@ namespace XamMob.Views
         {
             Ip = ip;
             Port = port;
+            Storage.Ip = ip;
+            Storage.Port = port;
             client = new HttpClient();
             InitializeComponent();
         }

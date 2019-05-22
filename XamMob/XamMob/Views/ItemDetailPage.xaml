@@ -10,20 +10,41 @@
                 VerticalOptions="FillAndExpand"
                 HasUnevenRows="true"
                 IsPullToRefreshEnabled="true"
+                ItemSelected="OnItemSelected"
                 CachingStrategy="RecycleElement">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Padding="10">
-                            <Label Text="{Binding Name}" 
-                                LineBreakMode="NoWrap" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" />
+                            <Label Text="{Binding Band}" FontSize="18" />
+                            <Label Text="{Binding Name}"  FontSize="16" />
+                    
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition ></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="80"></ColumnDefinition>
+                                    <ColumnDefinition Width="80"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Row="0" Grid.Column="0" Text="Genre: " />
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Genre}" />
+                                <Label Grid.Row="1" Grid.Column="0" Text="Mood: "/>
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding State.Mood}"/>
+                                <Label Grid.Row="2" Grid.Column="0" Text="Weather: "/>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding State.Weather}"/>
+                                <Label Grid.Row="3" Grid.Column="0" Text="Location: "/>
+                                <Label Grid.Row="3" Grid.Column="1" Text="{Binding State.Location}"/>
+                            </Grid>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Button Text="Delete playlist" Clicked="DeletePlaylist"></Button>
     </StackLayout>
 
 </ContentPage>
