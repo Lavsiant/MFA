@@ -40,6 +40,7 @@ class SongList extends React.Component<Props, State>{
                 name: '',
                 band: '',
                 genre: Genres.Rock,
+                url: '',
                 state: {
                     location: Location.Undefined,
                     mood: Mood.Undefined,
@@ -101,6 +102,13 @@ class SongList extends React.Component<Props, State>{
     }
 
     render() {
+        let language = 'en'
+        if (localStorage.getItem('language')) {
+            language = localStorage.getItem('language')
+        }
+        else {
+            language = 'en'
+        }
         const styles = theme => ({
             container: {
                 display: 'flex',
@@ -152,6 +160,22 @@ class SongList extends React.Component<Props, State>{
                                 onChange={this.handleGeneralChange}
                                 required
                             />
+                        </div>
+                        <div className='field'>
+                            <TextField
+                                style={{ width: '90%' }}
+                                label="Url"
+
+                                type="text"
+                                name="url"
+                                autoComplete="Username"
+                                margin="normal"
+                                variant="outlined"
+                                value={song.url}
+                                onChange={this.handleGeneralChange}
+                                required
+                            />
+
                         </div>
                         <div className='field'>
                             <TextField

@@ -82,6 +82,8 @@ namespace DbRepository.Migrations
 
                     b.Property<int?>("StateID");
 
+                    b.Property<string>("Url");
+
                     b.HasKey("ID");
 
                     b.HasIndex("StateID");

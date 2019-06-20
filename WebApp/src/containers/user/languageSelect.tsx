@@ -74,7 +74,7 @@ export default class Language extends React.Component<Props, State>  {
 
                             </TextField>
                         </div>
-                        <Button variant="contained" color="primary" size='large' type='submit' className="form-group" style={{ margin: 'auto' }}>{dictionary('update', this.state.language)}</Button>
+                        <Button variant="contained" color="primary" size='large' type='submit' className="form-group" style={{ margin: 'auto' }}>{this.state.language=='en' ? 'Update' : "Оновити"}</Button>
 
                     </form>
                 </div>

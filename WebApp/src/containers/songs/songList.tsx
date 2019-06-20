@@ -84,6 +84,14 @@ class SongList extends React.Component<Props, State>{
     }
 
     render() {
+        let language = 'en';
+        if (localStorage.getItem('language')) {
+            language = localStorage.getItem('language');
+        }
+        else {
+            language = 'en';
+        }
+
         const { rowsPerPage, page } = this.state;
         const emptyRows = rowsPerPage - Math.min(rowsPerPage, this.state.filteredSongs.length - page * rowsPerPage);
 
@@ -93,12 +101,12 @@ class SongList extends React.Component<Props, State>{
                 <Table className={'table'} >
                     <TableHead>
                         <TableRow>
-                            <TableCell style={{ fontSize: 20 }}>Name</TableCell>
-                            <TableCell style={{ fontSize: 20 }} numeric>Band</TableCell>
-                            <TableCell style={{ fontSize: 20 }} numeric>Genre</TableCell>
-                            <TableCell style={{ fontSize: 20 }} numeric>Mood</TableCell>
-                            <TableCell style={{ fontSize: 20 }} numeric>Weather</TableCell>
-                            <TableCell style={{ fontSize: 20 }} numeric>Location</TableCell>
+                            <TableCell style={{ fontSize: 20 }}> {language == 'en' ? "Name" : 'Назва'}</TableCell>
+                            <TableCell style={{ fontSize: 20 }} numeric> {language == 'en' ? "Band" : 'Група'}</TableCell>
+                            <TableCell style={{ fontSize: 20 }} numeric> {language == 'en' ? "Genre" : 'Жанр'}</TableCell>
+                            <TableCell style={{ fontSize: 20 }} numeric> {language == 'en' ? "Mood" : 'Настрій'}</TableCell>
+                            <TableCell style={{ fontSize: 20 }} numeric> {language == 'en' ? "Weather" : 'Погода'}</TableCell>
+                            <TableCell style={{ fontSize: 20 }} numeric> {language == 'en' ? "Location" : 'Локація'}</TableCell>
 
                         </TableRow>
                     </TableHead>
@@ -110,10 +118,10 @@ class SongList extends React.Component<Props, State>{
                                         {song.name}
                                     </TableCell>
                                     <TableCell style={{ fontSize: 18 }} numeric>{song.band}</TableCell>
-                                    <TableCell style={{ fontSize: 18 }} numeric>{enumService.GetGenreName(song.genre)}</TableCell>
-                                    <TableCell style={{ fontSize: 18 }} numeric>{enumService.GetMoodName(song.state.mood)}</TableCell>
-                                    <TableCell style={{ fontSize: 18 }} numeric>{enumService.GetWeatherName(song.state.weather)}</TableCell>
-                                    <TableCell style={{ fontSize: 18 }} numeric>{enumService.GetLocationName(song.state.location)}</TableCell>
+                                    <TableCell style={{ fontSize: 18 }} numeric>{enumService.GetGenreName(song.genre, language)}</TableCell>
+                                    <TableCell style={{ fontSize: 18 }} numeric>{enumService.GetMoodName(song.state.mood, language)}</TableCell>
+                                    <TableCell style={{ fontSize: 18 }} numeric>{enumService.GetWeatherName(song.state.weather, language)}</TableCell>
+                                    <TableCell style={{ fontSize: 18 }} numeric>{enumService.GetLocationName(song.state.location, language)}</TableCell>
                                 </TableRow>
                             );
                         })}

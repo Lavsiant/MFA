@@ -40,6 +40,7 @@ class SongDetails extends React.Component<Props, State> {
             song: {
                 name: '',
                 band: '',
+                url: '',
                 genre: Genres.Blues,
                 state: {
                     mood: Mood.Undefined,
@@ -66,7 +67,7 @@ class SongDetails extends React.Component<Props, State> {
                 //redirect to do
             })
 
-        if (localStorage.getItem('user') && localStorage.getItem('user')!=='undefined') {
+        if (localStorage.getItem('user') && localStorage.getItem('user') !== 'undefined') {
             const username = JSON.parse(localStorage.getItem('user')).login;
             this.setState({
                 username: username
@@ -88,24 +89,24 @@ class SongDetails extends React.Component<Props, State> {
 
     handleClose = () => {
         this.setState({ open: false });
-      };
+    };
 
 
     render() {
         let count = 1;
-        let language = '';
-        if (localStorage.getItem('lang')) {
-            language = localStorage.getItem('lang');
+        let language = 'en';
+        if (localStorage.getItem('language')) {
+            language = localStorage.getItem('language');
         }
         else {
             language = 'en';
-            localStorage.setItem('lang', 'en');
         }
+
         return (
             <Paper className='tab-create' style={{ fontSize: 20, marginTop: 100, paddingBottom: 50 }} >
                 <div style={{ textAlign: 'center', display: 'block' }}>
                     <div>
-                        <FormLabel style={{ fontSize: 22 }}> Name </FormLabel>
+                        <FormLabel style={{ fontSize: 22 }}> {language == 'en' ? "Name" : 'Назва'} </FormLabel>
                         <br />
                         <TextField
                             style={{ width: '85%' }}
@@ -121,7 +122,7 @@ class SongDetails extends React.Component<Props, State> {
                     </div>
                     <br />
                     <div style={{ marginTop: 20 }}>
-                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}> Band </FormLabel>
+                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}> {language == 'en' ? "Band" : 'Група'} </FormLabel>
                         <br />
                         <TextField
                             style={{ width: '85%' }}
@@ -137,7 +138,23 @@ class SongDetails extends React.Component<Props, State> {
                     </div>
                     <br />
                     <div style={{ marginTop: 20 }}>
-                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}>Genre</FormLabel>
+                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}> URL </FormLabel>
+                        <br />
+                        <TextField
+                            style={{ width: '85%' }}
+                            id="outlined-read-only-input"
+                            value={this.state.song.url}
+                            defaultValue="Hello World"
+                            margin="normal"
+                            InputProps={{
+                                readOnly: true,
+                            }}
+                            variant="outlined"
+                        />
+                    </div>
+                    <br />
+                    <div style={{ marginTop: 20 }}>
+                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}>{language == 'en' ? "Genre" : 'Жанр'}</FormLabel>
                         <br />
                         <TextField
                             style={{ width: '85%' }}
@@ -153,7 +170,7 @@ class SongDetails extends React.Component<Props, State> {
                     </div>
                     <br />
                     <div style={{ marginTop: 20, marginBottom: 30 }}>
-                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}> Location </FormLabel>
+                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}> {language == 'en' ? "Location" : 'Локація'} </FormLabel>
                         <br />
                         <TextField
                             style={{ width: '85%' }}
@@ -168,7 +185,7 @@ class SongDetails extends React.Component<Props, State> {
                         />
                     </div>
                     <div style={{ marginTop: 20, marginBottom: 30 }}>
-                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}> Mood </FormLabel>
+                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}> {language == 'en' ? "Mood" : 'Настрій'} </FormLabel>
                         <br />
                         <TextField
                             style={{ width: '85%' }}
@@ -183,7 +200,7 @@ class SongDetails extends React.Component<Props, State> {
                         />
                     </div>
                     <div style={{ marginTop: 20, marginBottom: 30 }}>
-                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}> Weather </FormLabel>
+                        <FormLabel style={{ fontSize: 22, marginTop: 80 }}> {language == 'en' ? "Weather" : 'Погода'} </FormLabel>
                         <br />
                         <TextField
                             style={{ width: '85%' }}
@@ -200,10 +217,10 @@ class SongDetails extends React.Component<Props, State> {
 
                     {this.state.username && this.state.playlists && this.state.playlists.length ? <div>
                         <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-                            Add song to playlist
-                         </Button>
+                            Add
+                        </Button>
                         <PlaylistSelect
-                            playlists= {this.state.playlists}
+                            playlists={this.state.playlists}
                             open={this.state.open}
                             onClose={this.handleClose}
                             songId={this.props.id}

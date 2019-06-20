@@ -68,7 +68,8 @@ namespace WebApp.Controllers
                             State = x.Song.State,
                             Genre = x.Song.Genre,
                             Name = x.Song.Name,
-                            id = x.Song.ID
+                            id = x.Song.ID,
+                            Url = x.Song.Url
 
                         }).ToList()
                     });

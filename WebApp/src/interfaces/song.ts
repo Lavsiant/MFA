@@ -6,6 +6,7 @@ export  interface ISong{
     band: string;
     genre: Genres
     state: State;
+    url: string;
 }
 
 export interface State{

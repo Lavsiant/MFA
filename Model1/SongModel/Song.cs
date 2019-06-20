@@ -21,6 +21,8 @@ namespace Model
 
         public State State { get; set; }
 
+        public string Url { get; set; }
+
         public List<PlaylistSong> PlaylistSongs { get; set; }
     }
 }

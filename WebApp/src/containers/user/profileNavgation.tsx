@@ -35,6 +35,13 @@ class ProfileTabs extends React.PureComponent<Props,State> {
     } 
 
     render() {
+        let language = 'en'
+        if (localStorage.getItem('language')) {
+            language = localStorage.getItem('language')
+        }
+        else {
+            language = 'en'
+        }
 
         const { activeIndex } = this.state;
         const root = {
@@ -46,14 +53,14 @@ class ProfileTabs extends React.PureComponent<Props,State> {
                 <div style={{width:'30%', float:'left'}}>
                     <List component="nav" style={root}>
                     <ListItem button onClick={()=>this.handleChange(0)}>
-                        <ListItemText primary="Profile" />
+                        <ListItemText primary= {language=='en' ? "Profile" : 'Профіль'} />
                     </ListItem>
                     <Divider />
                     <ListItem button divider onClick={()=>this.handleChange(1)}>
-                        <ListItemText primary="Preferences" />
+                        <ListItemText primary= {language=='en' ? "Preferences" : 'Вподобання'} />
                     </ListItem>
                     <ListItem button onClick={()=>this.handleChange(2)}>
-                        <ListItemText primary="Language" />
+                        <ListItemText primary= {language=='en' ? "Language" : 'Мова'} />
                     </ListItem>
                     <Divider light />
 

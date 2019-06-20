@@ -135,6 +135,13 @@ export default class Playlists extends React.PureComponent<Props, State> {
             width: '100%',
             maxWidth: '360px'
         }
+        let language = 'en'
+        if (localStorage.getItem('language')) {
+            language = localStorage.getItem('language')
+        }
+        else {
+            language = 'en'
+        }
         return (
             <div style={{ display: 'flex' }}>
                 <div style={{ width: '30%', float: 'left' }}>
@@ -155,7 +162,7 @@ export default class Playlists extends React.PureComponent<Props, State> {
                         <div className='field'>
                             <TextField
                                 style={{ width: '90%' }}
-                                label='New playlist'
+                                label={language='en' ? 'New playlist' : 'Добавити плейліст'}
                                 type="text"
                                 name="band"
                                 autoComplete="Username"
@@ -164,7 +171,7 @@ export default class Playlists extends React.PureComponent<Props, State> {
                                 value={this.state.newPlaylist}
                                 onChange={this.handleImputChange}
                             />
-                            <Button onClick={this.addPlaylist}>Add new</Button>
+                            <Button onClick={this.addPlaylist}>{language='en' ? 'Add new' : 'Добавити новий'}</Button>
                         </div>
 
 
@@ -202,7 +209,8 @@ export default class Playlists extends React.PureComponent<Props, State> {
                                                             </div>
                                                         )
                                                     }) :
-                                                    <p>There are no songs in this playlist yet</p>}
+                                                    <p>
+                                                        {language='en' ? 'There are no songs in this playlist yet' : 'В цьому плейлісті ще нема пісень'}</p>}
                                             </List>
                                         </div>
                                     </div>

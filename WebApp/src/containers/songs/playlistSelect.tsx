@@ -63,10 +63,16 @@ export default class PlaylistSelect extends React.Component<Props, State> {
     };
 
     render() {
-
+        let language = 'en'
+        if (localStorage.getItem('language')) {
+            language = localStorage.getItem('language')
+        }
+        else {
+            language = 'en'
+        }
         return (
             <Dialog open={this.props.open} onClose={this.props.onClose}>
-                <DialogTitle id="simple-dialog-title">Select playlist</DialogTitle>
+                <DialogTitle id="simple-dialog-title">{language='en' ? 'Select playlist' : 'Оберіть плейліст'}</DialogTitle>
                 <div style={{textAlign:'center'}}>
                     <FormControl>
                        {/* // <InputLabel htmlFor="age-simple">Playlist</InputLabel> */}
@@ -88,7 +94,7 @@ export default class PlaylistSelect extends React.Component<Props, State> {
                     </FormControl>
                 </div>
                 <div className="form-group" style={{textAlign: 'center'}}>
-                    <Button size='large' variant="contained" type='button' onClick={this.handleSubmit} style={{ margin: 'auto' }} color="primary"> AddSong </Button>
+                    <Button size='large' variant="contained" type='button' onClick={this.handleSubmit} style={{ margin: 'auto' }} color="primary"> {language='en' ? 'Add song' : 'Добавити пісню'} </Button>
                 </div>
             </Dialog>
         );

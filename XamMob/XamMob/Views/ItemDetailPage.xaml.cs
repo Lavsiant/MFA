@@ -38,7 +38,7 @@ namespace XamMob.Views
             if (item == null)
                 return;
 
-            Device.OpenUri(new Uri("https://www.youtube.com/watch?v=WEQnzs8wl6E"));
+            Device.OpenUri(String.IsNullOrEmpty(item.Url) ? new Uri("https://www.youtube.com/watch?v=WEQnzs8wl6E") : new Uri(item.Url));
         }
 
         async void DeletePlaylist(object sender, EventArgs args)

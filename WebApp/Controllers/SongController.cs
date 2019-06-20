@@ -34,7 +34,8 @@ namespace WebApp.Controllers
                     State = model.State,
                     Name = model.Name,
                     Genre = model.Genre,
-                    Band = model.Band
+                    Band = model.Band,
+                    Url = model.Url
                 };
                 return await _songService.CreateSong(songModel);
             });

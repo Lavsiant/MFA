@@ -74,7 +74,7 @@ class RegisterPage extends React.Component<AuthProps, State> {
                 <div>
                     <h2>Register</h2>
                     <form name="form" onSubmit={this.handleSubmit}>
-                        <div >
+                        {/* <div >
                             <TextField
                                 style={{ width: '90%' }}
                                 label="First name"
@@ -103,7 +103,7 @@ class RegisterPage extends React.Component<AuthProps, State> {
                                 required
                             />
 
-                        </div>
+                        </div> */}
                         <div className='login-field' >
                             <TextField
                                 style={{ width: '90%' }}

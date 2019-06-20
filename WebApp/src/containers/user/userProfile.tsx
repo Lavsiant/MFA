@@ -90,6 +90,13 @@ class UserProfile extends React.Component<Props, State>  {
     }
 
     render() {
+        let language = 'en'
+        if (localStorage.getItem('language')) {
+            language = localStorage.getItem('language')
+        }
+        else {
+            language = 'en'
+        }
         const { user } = this.state;
         return (
                 <div style={{ textAlign: 'center' }}>
@@ -97,7 +104,7 @@ class UserProfile extends React.Component<Props, State>  {
                     <div className='field'>
                         <TextField
                             style={{ width: '60%' }}
-                            label="Email"
+                            label={language=='en' ? "Email" : "Електронна пошта"}
 
                             type="text"
                             name="email"
@@ -113,7 +120,7 @@ class UserProfile extends React.Component<Props, State>  {
                     <div className='field'>
                         <TextField
                             style={{ width: '60%' }}
-                            label='New password'
+                            label={language=='en' ? "New password" : "Новий пароль" }
                             type="password"
                             name="password"
                             autoComplete="Password"
@@ -128,7 +135,7 @@ class UserProfile extends React.Component<Props, State>  {
                     <div className='field'>
                         <TextField
                             style={{ width: '60%' }}
-                            label='Login'
+                            label={language=='en' ? "Login" :"Логін"}
                             type="text"
                             name="login"
                             autoComplete="Password"
@@ -142,7 +149,7 @@ class UserProfile extends React.Component<Props, State>  {
 
 
                     <div className="form-group">
-                        <Button size='large' variant="contained" type='button' onClick={this.handleSubmit} style={{ marginBottom: 20 }} color="primary"> Update </Button>
+                        <Button size='large' variant="contained" type='button' onClick={this.handleSubmit} style={{ marginBottom: 20 }} color="primary"> {language=='en' ? "Update" : "Оновити"} </Button>
                     </div>
                     {/* {this.state.error ? 
                         <div style={{color: 'red'}}> {this.state.error} </div> : null} */}

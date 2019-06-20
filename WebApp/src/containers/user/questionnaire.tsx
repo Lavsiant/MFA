@@ -56,7 +56,7 @@ class Questionnaire extends React.Component<Props, State>  {
 
     rateGenre = (gp: IGenrePreference, p: Preference) => {
         let gps = this.state.genrePreferences;
-        const index = gp.genre - 1;
+        const index = gp.genre;
         gps[index] = {
             genre: gp.genre,
             name: gp.name,
@@ -72,6 +72,10 @@ class Questionnaire extends React.Component<Props, State>  {
             const userId = JSON.parse(localStorage.getItem('user')).login;
             const gps = this.state.genrePreferences;
             this.props.submitForm({ id: userId, gps });
+            window.location = {
+                ...window.location,
+                href: '/home'
+            }
         }
         else {
             window.location = {
@@ -82,35 +86,42 @@ class Questionnaire extends React.Component<Props, State>  {
     }
 
     render() {
+        let language = 'en'
+        if (localStorage.getItem('language')) {
+            language = localStorage.getItem('language')
+        }
+        else {
+            language = 'en'
+        }
         return (
             <div>
-                <h2 style={{ textAlign: 'center' }}>Genre preferences</h2>
+                <h2 style={{ textAlign: 'center' }}>{language=='en' ? "Genre preferences" : "Жанрові вподобання"}</h2>
                 <Paper style={{ margin: 'auto', width: '50%' }}>
                     {this.state.genrePreferences.map((gp, i) => {
                         return (
                             <div style={{ margin: 'auto', textAlign: 'center', marginTop: '20px' }}>
                                 <span style={{ marginLeft: '50px' }}>{gp.name}</span> <br />
-                                {gp.preference === Preference.VeryLow ? <Button style={{ background: 'rgb(160, 254, 161)' }} onClick={() => this.rateGenre(gp, Preference.VeryLow)}>VeryLow</Button>
-                                    : <Button onClick={() => this.rateGenre(gp, Preference.VeryLow)}>VeryLow</Button>}
+                                {gp.preference === Preference.VeryLow ? <Button style={{ background: 'rgb(160, 254, 161)' }} onClick={() => this.rateGenre(gp, Preference.VeryLow)}>{language=='en' ? "Very low" : 'Дуже низько'}</Button>
+                                    : <Button onClick={() => this.rateGenre(gp, Preference.VeryLow)}>{language=='en' ? "Very low" : 'Дуже низько'}</Button>}
 
 
-                                {gp.preference === Preference.Low ? <Button style={{ background: 'rgb(160, 254, 161)' }} onClick={() => this.rateGenre(gp, Preference.Low)}>Low</Button>
-                                    : <Button onClick={() => this.rateGenre(gp, Preference.Low)}>Low</Button>}
+                                {gp.preference === Preference.Low ? <Button style={{ background: 'rgb(160, 254, 161)' }} onClick={() => this.rateGenre(gp, Preference.Low)}>{language=='en' ? "Low" : 'Низько'}</Button>
+                                    : <Button onClick={() => this.rateGenre(gp, Preference.Low)}>{language=='en' ? "Low" : 'Низько'}</Button>}
 
-                                {gp.preference === Preference.Medium ? <Button style={{ background: 'rgb(160, 254, 161)' }} onClick={() => this.rateGenre(gp, Preference.Medium)}>Medium</Button>
-                                    : <Button onClick={() => this.rateGenre(gp, Preference.Medium)}>Medium</Button>}
+                                {gp.preference === Preference.Medium ? <Button style={{ background: 'rgb(160, 254, 161)' }} onClick={() => this.rateGenre(gp, Preference.Medium)}>{language=='en' ? "Medium" : 'Cередньо'}</Button>
+                                    : <Button onClick={() => this.rateGenre(gp, Preference.Medium)}>{language=='en' ? "Medium" : 'Cередньо'}</Button>}
 
-                                {gp.preference === Preference.High ? <Button style={{ background: 'rgb(160, 254, 161)' }} onClick={() => this.rateGenre(gp, Preference.High)}>High</Button>
-                                    : <Button onClick={() => this.rateGenre(gp, Preference.High)}>High</Button>}
+                                {gp.preference === Preference.High ? <Button style={{ background: 'rgb(160, 254, 161)' }} onClick={() => this.rateGenre(gp, Preference.High)}>{language=='en' ? "High" : 'Високо'}</Button>
+                                    : <Button onClick={() => this.rateGenre(gp, Preference.High)}>{language=='en' ? "High" : 'Високо'}</Button>}
 
-                                {gp.preference === Preference.VeryHigh ? <Button style={{ background: 'rgb(160, 254, 161)' }} onClick={() => this.rateGenre(gp, Preference.VeryHigh)}>Very High</Button>
-                                    : <Button onClick={() => this.rateGenre(gp, Preference.VeryHigh)}>Very High</Button>}
+                                {gp.preference === Preference.VeryHigh ? <Button style={{ background: 'rgb(160, 254, 161)' }} onClick={() => this.rateGenre(gp, Preference.VeryHigh)}>{language=='en' ? "Very нigh" : 'Дуже високо'}</Button>
+                                    : <Button onClick={() => this.rateGenre(gp, Preference.VeryHigh)}>{language=='en' ? "Very нigh" : 'Дуже високо'}</Button>}
 
                             </div>
 
                         )
                     })}
-                    <Button size='large' style={{ marginLeft: '45%' }} variant="contained" type='button' onClick={this.handleSubmit} color="primary"> Submit </Button>
+                    <Button size='large' style={{ marginLeft: '45%' }} variant="contained" type='button' onClick={this.handleSubmit} color="primary"> {language=='en' ? "Submit" : 'Підтвердити'} </Button>
                 </Paper>
             </div>
         )

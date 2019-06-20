@@ -16,5 +16,7 @@ namespace WebApp.ViewModels.Song
         public Genre Genre { get; set; }
 
         public State State { get; set; }
+
+        public string Url { get; set; }
     }
 }

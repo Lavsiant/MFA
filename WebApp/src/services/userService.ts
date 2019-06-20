@@ -53,7 +53,7 @@ async function submitPreferences(gp: IGenrePreference[], userId: string ) : Prom
 
     const response = res.json();
 
-    return res.json();   
+    return response;   
 }
 
 async function updateUser(user: IUser ) : Promise<TypedResponse<IUser>> {

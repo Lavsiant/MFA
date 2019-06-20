@@ -26,6 +26,13 @@ class HomePage extends React.Component<HomeProps>{
     }
 
     render() {
+        let language = 'en'
+        if (localStorage.getItem('language')) {
+            language = localStorage.getItem('language')
+        }
+        else {
+            language = 'en'
+        }
         return (
             <div style={{ textAlign: 'center' }}>
                 <img style={{width: '600px'}} src="/styles/music-logo-design.jpg"/>
